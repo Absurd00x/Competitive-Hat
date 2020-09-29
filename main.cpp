@@ -19,7 +19,7 @@ typedef Triple<int,int,int>ti;
 typedef Quad<int,int,int,int>qi;
 typedef vector<int>vi;
 typedef vector<vi>vvi;
-#define LONG_INF 3000000000000000000
+#define LONG_INF (ll(3e18))
 #define INT_INF 1063741824
 #define ui unsigned int
 #define double ld
@@ -30,8 +30,7 @@ typedef vector<vi>vvi;
 #define fs(s) for(auto&shift:s)
 #define within_bounds(x,y,a,b) (x>-1&&y>-1&&x<a&&y<b)
 #define CLEAR "\x1B[2J\x1B[H"
-const int MOD=1000000007;
-const int POW2ML=33554432;//32Mb
+const int MOD=1e9+7;
 const int PRECISION=6;
 const vector<pii>SHIFTS={{0,1},{-1,0},{0,-1},{1,0}};
 const vector<pii>KING_SHIFTS={{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1},{1,0},{1,1}};
