@@ -41,7 +41,7 @@ template<typename T>inline void print_matrix(const vector<vector<T>>&m,const int
 template<typename T>inline void print_set(const set<T>&a,const int w=1,const char s=' '){if(a.size()>0){auto stop=prev(a.end());for(auto it=a.begin();it!=stop;it++)cout<<setw(w)<<(*it)<<s;cout<<setw(w)<<(*stop);}cout<<endl;}
 template<typename T>inline void print_multiset(const multiset<T>&a,const int w=1,const char s=' '){if(a.size()>0){auto stop=prev(a.end());for(auto it=a.begin();it!=stop;it++)cout<<setw(w)<<(*it)<<s;cout<<setw(w)<<(*stop);}cout<<endl;}
 template<typename K,typename V>inline void print_map(const map<K,V>&m,const int w=1,const char s=' '){for(auto&it:m)cout<<setw(w)<<it.first<<s<<setw(w)<<it.second<<endl;}
-inline void boostIO(){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<fixed<<setprecision(PRECISION);}
+const auto boostIO=[](){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<fixed<<setprecision(PRECISION);return 0;}();
 inline double logn(const double&n,const double&base){return log(n)/log(base);}
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
@@ -52,8 +52,6 @@ inline int min(const pii&p){return(p.first<p.second?p.first:p.second);}
 
 int32_t main()
 {
-  boostIO();
-
   
 
   cout.flush();
