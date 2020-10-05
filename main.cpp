@@ -1,7 +1,4 @@
-//#pragma GCC optimize("O1")
-//#pragma GCC optimize("O2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("Ofast")
+//#pragma GCC optimize("O")
 #include <bits/stdc++.h>
 using namespace std;
 template<typename F,typename S,typename T>struct Triple{F first;S second;T third;Triple(F a,S b,T c){first=a,second=b,third=c;}Triple(){first=F(0),second=S(0),third=T(0);}};
@@ -20,7 +17,7 @@ typedef Quad<int,int,int,int>qi;
 typedef vector<int>vi;
 typedef vector<vi>vvi;
 #define LONG_INF (ll(3e18))
-#define INT_INF 1063741824
+#define INT_INF ((1<<30)-int32_t(1e7))
 #define ui unsigned int
 #define double ld
 #define fi(f,t) for(int i=f;i<int(t);++i)
