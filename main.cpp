@@ -13,6 +13,7 @@ typedef long double ld;
 #define int ll
 #define double ld
 typedef pair<int,int>pii;
+typedef pair<double,double>pdd;
 typedef Triple<int,int,int>ti;
 typedef Triple<double,double,double>td;
 typedef Quad<int,int,int,int>qi;
