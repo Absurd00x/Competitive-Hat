@@ -33,11 +33,6 @@ const double EPS = 1e-6;
 const vector<pii>SHIFTS={{0,1},{-1,0},{0,-1},{1,0}};
 const vector<pii>KING_SHIFTS={{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1},{1,0},{1,1}};
 const vector<pii>KNIGHT_SHIFTS={{-1,2},{-2,1},{-2,-1},{-1,-2},{1,-2},{2,-1},{2,1},{1,2}};
-template<typename T>inline void print_array(const vector<T>&a,const int w=1,const char s=' '){for(size_t i=0;i<a.size()-1;++i)cout<<setw(w)<<a[i]<<s;cout<<setw(w)<<a.back()<<endl;}
-template<typename T>inline void print_matrix(const vector<vector<T>>&m,const int w=1,const char s=' '){for(size_t i=0;i<m.size();++i)print_array(m[i],w,s);cout<<endl;}
-template<typename T>inline void print_set(const set<T>&a,const int w=1,const char s=' '){if(a.size()>0){auto stop=prev(a.end());for(auto it=a.begin();it!=stop;it++)cout<<setw(w)<<(*it)<<s;cout<<setw(w)<<(*stop);}cout<<endl;}
-template<typename T>inline void print_multiset(const multiset<T>&a,const int w=1,const char s=' '){if(a.size()>0){auto stop=prev(a.end());for(auto it=a.begin();it!=stop;it++)cout<<setw(w)<<(*it)<<s;cout<<setw(w)<<(*stop);}cout<<endl;}
-template<typename K,typename V>inline void print_map(const map<K,V>&m,const int w=1,const char s=' '){for(auto&it:m)cout<<setw(w)<<it.first<<s<<setw(w)<<it.second<<endl;}
 const auto boostIO=[](){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<fixed<<setprecision(PRECISION);return 0;}();
 inline double logn(const double&n,const double&base){return log(n)/log(base);}
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
