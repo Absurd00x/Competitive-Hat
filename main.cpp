@@ -29,6 +29,7 @@ typedef vector<vi>vvi;
 #define CLEAR "\x1B[2J\x1B[H"
 const int MOD=1e9+7;
 const int PRECISION=6;
+const double EPS = 1e-6;
 const vector<pii>SHIFTS={{0,1},{-1,0},{0,-1},{1,0}};
 const vector<pii>KING_SHIFTS={{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1},{1,0},{1,1}};
 const vector<pii>KNIGHT_SHIFTS={{-1,2},{-2,1},{-2,-1},{-1,-2},{1,-2},{2,-1},{2,1},{1,2}};
