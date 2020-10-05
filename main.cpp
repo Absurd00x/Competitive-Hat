@@ -9,17 +9,18 @@ template<typename Fi,typename Se,typename Th,typename Fo>bool operator<(const Qu
 template<typename Fi,typename Se,typename Th,typename Fo>ostream&operator<<(ostream&os,const Quad<Fi,Se,Th,Fo>&a){os<<a.first<<' '<<a.second<<' '<<a.third<<' '<<a.fourth;return os;}
 typedef long long ll;
 typedef unsigned long long ull;
-#define int ll
 typedef long double ld;
+#define int ll
+#define double ld
 typedef pair<int,int>pii;
 typedef Triple<int,int,int>ti;
+typedef Triple<double,double,double>td;
 typedef Quad<int,int,int,int>qi;
 typedef vector<int>vi;
 typedef vector<vi>vvi;
 #define LONG_INF (ll(3e18))
 #define INT_INF ((1<<30)-int32_t(1e7))
 #define ui unsigned int
-#define double ld
 #define fi(f,t) for(int i=f;i<int(t);++i)
 #define fj(f,t) for(int j=f;j<int(t);++j)
 #define fk(f,t) for(int k=f;k<int(t);++k)
