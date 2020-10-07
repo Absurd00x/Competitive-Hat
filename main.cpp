@@ -39,8 +39,6 @@ const auto boostIO=[](){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout
 inline double logn(const double&n,const double&base){return log(n)/log(base);}
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
-inline int gcd(int a,int b){while(b){a%=b;swap(a,b);}return a;}
-inline int lcm(const int&a,const int&b){return abs(a*b)/gcd(a,b);}
 inline int min(const pii&p){return(p.first<p.second?p.first:p.second);}
 
 
