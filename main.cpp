@@ -36,11 +36,8 @@ const vector<pii>SHIFTS={{0,1},{-1,0},{0,-1},{1,0}};
 const vector<pii>KING_SHIFTS={{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1},{1,0},{1,1}};
 const vector<pii>KNIGHT_SHIFTS={{-1,2},{-2,1},{-2,-1},{-1,-2},{1,-2},{2,-1},{2,1},{1,2}};
 const auto boostIO=[](){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<fixed<<setprecision(PRECISION);return 0;}();
-inline double logn(const double&n,const double&base){return log(n)/log(base);}
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
-inline int min(const pii&p){return(p.first<p.second?p.first:p.second);}
-
 
 int32_t main()
 {
