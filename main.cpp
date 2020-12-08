@@ -18,7 +18,9 @@ typedef Triple<int,int,int>ti;
 typedef Triple<double,double,double>td;
 typedef Quad<int,int,int,int>qi;
 typedef vector<int>vi;
+typedef vector<double>vd;
 typedef vector<vi>vvi;
+typedef vector<vd>vvd;
 #define LONG_INF (ll(3e18))
 #define INT_INF ((1<<30)-int32_t(1e7))
 #define ui unsigned int
