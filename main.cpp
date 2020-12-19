@@ -3,6 +3,7 @@
 using namespace std;
 template<typename F,typename S,typename T>struct Triple{F first;S second;T third;Triple(F a,S b,T c){first=a,second=b,third=c;}Triple(){first=F(0),second=S(0),third=T(0);}};
 template<typename F,typename S,typename T>bool operator<(const Triple<F,S,T>&a,const Triple<F,S,T>&b){return(a.first<b.first?true:(a.first==b.first?(a.second<b.second?true:(a.second==b.second?a.third<b.third:false)):false));}
+template<typename F,typename S,typename T>bool operator>(const Triple<F,S,T>&a,const Triple<F,S,T>&b){return(a.first>b.first?true:(a.first==b.first?(a.second>b.second?true:(a.second==b.second?a.third>b.third:false)):false));}
 template<typename F,typename S,typename T>ostream&operator<<(ostream&os,const Triple<F,S,T>&a){os<<a.first<<' '<<a.second<<' '<<a.third;return os;}
 template<typename Fi,typename Se,typename Th,typename Fo>struct Quad{Fi first;Se second;Th third;Fo fourth;Quad(Fi a,Se b,Th c,Fo d){first=a,second=b,third=c,fourth=d;}Quad(){first=Fi(0),second=Se(0),third=Th(0),fourth=Fo(0);}};
 template<typename Fi,typename Se,typename Th,typename Fo>bool operator<(const Quad<Fi,Se,Th,Fo>&a,const Quad<Fi,Se,Th,Fo>&b){return(a.first<b.first?true:(a.first==b.first?(a.second<b.second?true:(a.second==b.second?(a.third<b.third?true:(a.third==b.third?a.fourth<b.fourth:false)):false)):false));}
