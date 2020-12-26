@@ -9,7 +9,8 @@ template<typename Fi,typename Se,typename Th,typename Fo>struct Quad{Fi first;Se
 template<typename Fi,typename Se,typename Th,typename Fo>bool operator<(const Quad<Fi,Se,Th,Fo>&a,const Quad<Fi,Se,Th,Fo>&b){return(a.first<b.first?true:(a.first==b.first?(a.second<b.second?true:(a.second==b.second?(a.third<b.third?true:(a.third==b.third?a.fourth<b.fourth:false)):false)):false));}
 template<typename Fi,typename Se,typename Th,typename Fo>ostream&operator<<(ostream&os,const Quad<Fi,Se,Th,Fo>&a){os<<a.first<<' '<<a.second<<' '<<a.third<<' '<<a.fourth;return os;}
 typedef long long ll;
-typedef unsigned long long ui;
+typedef unsigned long long ull;
+typedef unsigned int ui;
 typedef long double ld;
 #define int ll
 #define double ld
