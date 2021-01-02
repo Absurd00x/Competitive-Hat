@@ -11,21 +11,21 @@ template<typename T>ostream&operator<<(ostream&os,const vector<T>&a){for(auto&v:
 template<typename T>istream&operator>>(istream&is,vector<T>&a){for(auto&v:a)is>>v;return is;}
 template<typename A,typename B>void remin(A&a,B b){a=a<b?a:b;}
 template<typename A,typename B>void remax(A&a,B b){a=a>b?a:b;}
-using ll = long long;
-using ull = unsigned long long;
-using ui = unsigned int;
-using ld = long double;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef unsigned int ui;
+typedef long double ld;
 #define int ll
 #define double ld
-using pii = pair<int,int>;
-using pdd = pair<double,double>;
-using ti = Triple<int,int,int>;
-using td = Triple<double,double,double>;
-using vi = vector<int>;
-using vb = vector<bool>;
-using vd = vector<double>;
-using vvi = vector<vi>;
-using vvd = vector<vd>;
+typedef pair<int,int>pii;
+typedef pair<double,double>pdd;
+typedef Triple<int,int,int>ti;
+typedef Triple<double,double,double>td;
+typedef vector<int>vi;
+typedef vector<bool>vb;
+typedef vector<double>vd;
+typedef vector<vi>vvi;
+typedef vector<vd>vvd;
 #define LONG_INF (ll(3e18))
 #define INT_INF ((1<<30)-int32_t(1e7))
 #define fi(f,t) for(int i=f;i<int(t);++i)
@@ -51,4 +51,5 @@ int32_t main()
   getchar();
   return 0;
 }
+
 
