@@ -32,7 +32,6 @@ using vvd = vector<vd>;
 #define fj(f,t) for(int j=f;j<int(t);++j)
 #define fk(f,t) for(int k=f;k<int(t);++k)
 #define fq(n) for(int q=0;q<int(n);++q)
-#define fs(s) for(auto&shift:s)
 #define within_bounds(x,y,a,b) (x>-1&&y>-1&&x<a&&y<b)
 #define CLEAR "\x1B[2J\x1B[H"
 #define all(x) (x).begin(),(x).end()
