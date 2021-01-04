@@ -1,14 +1,18 @@
 #include <bits/stdc++.h>
-using namespace std;
+#define vector std::vector
+#define endl std::endl
+#define cin std::cin
+#define cout std::cout
+#define pair std::pair
 template<typename F,typename S,typename T>struct Triple{F first;S second;T third;Triple(F a,S b,T c){first=a,second=b,third=c;}Triple(){first=F(0),second=S(0),third=T(0);}};
 template<typename F,typename S,typename T>bool operator<(const Triple<F,S,T>&a,const Triple<F,S,T>&b){return(a.first<b.first?true:(a.first==b.first?(a.second<b.second?true:(a.second==b.second?a.third<b.third:false)):false));}
 template<typename F,typename S,typename T>bool operator>(const Triple<F,S,T>&a,const Triple<F,S,T>&b){return(a.first>b.first?true:(a.first==b.first?(a.second>b.second?true:(a.second==b.second?a.third>b.third:false)):false));}
-template<typename F,typename S,typename T>ostream&operator<<(ostream&os,const Triple<F,S,T>&a){os<<a.first<<' '<<a.second<<' '<<a.third;return os;}
-template<typename F,typename S,typename T>istream&operator>>(istream&is,Triple<F,S,T>&a){is>>a.first>>a.second>>a.third;return is;}
-template<typename F,typename S>ostream&operator<<(ostream&os,const pair<F,S>&a){os<<a.first<<' '<<a.second;return os;}
-template<typename F,typename S>istream&operator>>(istream&is,pair<F,S>&a){is>>a.first>>a.second;return is;}
-template<typename T>ostream&operator<<(ostream&os,const vector<T>&a){for(auto&v:a)os<<v<<' ';return os;}
-template<typename T>istream&operator>>(istream&is,vector<T>&a){for(auto&v:a)is>>v;return is;}
+template<typename F,typename S,typename T>std::ostream&operator<<(std::ostream&os,const Triple<F,S,T>&a){os<<a.first<<' '<<a.second<<' '<<a.third;return os;}
+template<typename F,typename S,typename T>std::istream&operator>>(std::istream&is,Triple<F,S,T>&a){is>>a.first>>a.second>>a.third;return is;}
+template<typename F,typename S>std::ostream&operator<<(std::ostream&os,const pair<F,S>&a){os<<a.first<<' '<<a.second;return os;}
+template<typename F,typename S>std::istream&operator>>(std::istream&is,pair<F,S>&a){is>>a.first>>a.second;return is;}
+template<typename T>std::ostream&operator<<(std::ostream&os,const vector<T>&a){for(auto&v:a)os<<v<<' ';return os;}
+template<typename T>std::istream&operator>>(std::istream&is,vector<T>&a){for(auto&v:a)is>>v;return is;}
 template<typename A,typename B>void remin(A&a,B b){a=a<b?a:b;}
 template<typename A,typename B>void remax(A&a,B b){a=a>b?a:b;}
 typedef long long ll;
@@ -40,7 +44,7 @@ const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
 const double PI = 3.141592653589793238462643383279502884L;
-const auto boostIO=[](){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<fixed<<setprecision(PRECISION);return 0;}();
+const auto boostIO=[](){std::ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<std::fixed<<std::setprecision(PRECISION);return 0;}();
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
 
@@ -52,4 +56,5 @@ int32_t main()
   getchar();
   return 0;
 }
+
 
