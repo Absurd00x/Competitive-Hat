@@ -39,7 +39,7 @@ typedef vector<vd>vvd;
 #define within_bounds(x,y,a,b) (x>-1&&y>-1&&x<a&&y<b)
 #define CLEAR "\x1B[2J\x1B[H"
 #define all(x) (x).begin(),(x).end()
-#define debug(x) cerr<<__FUNCTION__<<':'<<__LINE__<<' '<<#x<<" = "<<x<<endl;
+#define debug(x) std::cerr<<__FUNCTION__<<':'<<__LINE__<<' '<<#x<<" = "<<x<<endl;
 const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
