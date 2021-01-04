@@ -39,6 +39,7 @@ typedef vector<vd>vvd;
 const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
+const double PI = 3.141592653589793238462643383279502884L;
 const auto boostIO=[](){ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);cout<<fixed<<setprecision(PRECISION);return 0;}();
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
@@ -51,5 +52,4 @@ int32_t main()
   getchar();
   return 0;
 }
-
 
