@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #define vector std::vector
+#define string std::string
 #define endl std::endl
 #define pair std::pair
 template<typename F,typename S,typename T>struct Triple{F first;S second;T third;Triple(F a,S b,T c){first=a,second=b,third=c;}Triple(){first=F(0),second=S(0),third=T(0);}};
