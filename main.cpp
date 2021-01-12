@@ -38,6 +38,7 @@ typedef vector<vd>vvd;
 #define fi(f,t) for(int i=f;i<int(t);++i)
 #define fj(f,t) for(int j=f;j<int(t);++j)
 #define fk(f,t) for(int k=f;k<int(t);++k)
+#define fv(f,t) for(int v=f;v<int(t);++v)
 #define fq(n) for(int q=0;q<int(n);++q)
 #define within_bounds(x,y,a,b) (x>-1&&y>-1&&x<a&&y<b)
 #define CLEAR "\x1B[2J\x1B[H"
