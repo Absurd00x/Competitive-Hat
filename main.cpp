@@ -58,7 +58,9 @@ void solve(std::istream&cin=std::cin,std::ostream&cout=std::cout) {
 
 int32_t main()
 {
-  solve();
+  int t;std::cin>>t;
+  fq(t)
+    solve();
 
   std::cout.flush();
   getchar();
