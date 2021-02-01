@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 #define accumulate std::accumulate
+#include <bits/stdc++.h>
+#define accumulate std::accumulate
 #define endl std::endl
 #define for_each std::for_each
 #define list std::list
@@ -37,8 +39,6 @@ typedef vector<bool>vb;
 typedef vector<double>vd;
 typedef vector<vi>vvi;
 typedef vector<vd>vvd;
-#define LONG_INF (ll(3e18))
-#define INT_INF ((1<<30)-int32_t(1e7))
 #define fi(f,t) for(int i=f;i<int(t);++i)
 #define fj(f,t) for(int j=f;j<int(t);++j)
 #define fk(f,t) for(int k=f;k<int(t);++k)
@@ -49,6 +49,8 @@ typedef vector<vd>vvd;
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
 #define debug(x) std::cerr<<__FUNCTION__<<':'<<__LINE__<<' '<<#x<<" = "<<x<<endl;
+const ll LONG_INF=(ll(3e18));
+const int32_t INT_INF=((1<<30)-int32_t(1e7));
 const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
