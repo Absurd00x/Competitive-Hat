@@ -49,8 +49,8 @@ typedef vector<vd>vvd;
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
 #define debug(x) std::cerr<<__FUNCTION__<<':'<<__LINE__<<' '<<#x<<" = "<<x<<endl;
-const ll LONG_INF=(ll(3e18));
 const int32_t INT_INF=((1<<30)-int32_t(1e7));
+const int64_t LONG_INF=(ll(3e18));
 const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
