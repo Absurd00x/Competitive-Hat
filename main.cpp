@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define accumulate std::accumulate
-#include <bits/stdc++.h>
-#define accumulate std::accumulate
 #define endl std::endl
 #define for_each std::for_each
 #define list std::list
