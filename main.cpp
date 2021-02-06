@@ -5,6 +5,7 @@
 #define list std::list
 #define pair std::pair
 #define queue std::queue
+#define sort stable_sort
 #define stack std::stack
 #define string std::string
 #define swap std::swap
