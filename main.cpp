@@ -44,8 +44,8 @@ typedef vector<vd>vvd;
 #define fq(n) for(int q=0;q<int(n);++q)
 #define within_bounds(x,y,a,b) (x>-1&&y>-1&&x<a&&y<b)
 #define CLEAR "\x1B[2J\x1B[H"
-#define all(x) (x).begin(),(x).end()
-#define rall(x) (x).rbegin(),(x).rend()
+#define all(x) std::begin(x),std::end(x)
+#define rall(x) std::rbegin(x),std::rend(x)
 #define debug(x) std::cerr<<__FUNCTION__<<':'<<__LINE__<<' '<<#x<<" = "<<x<<endl;
 const int32_t INT_INF=((1<<30)-int32_t(1e7));
 const int64_t LONG_INF=(ll(3e18));
@@ -73,4 +73,5 @@ int32_t main()
   getchar();
   return 0;
 }
+
 
