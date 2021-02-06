@@ -55,7 +55,7 @@ const int PRECISION=7;
 const double EPS = 1e-6;
 const double PI = std::acos(-1.0L);
 struct custom_tf:std::numpunct<char>{string do_truename()const{return"Yes";}string do_falsename()const{return"No";}};
-const auto boostIO=[](){std::ios_base::sync_with_stdio(0);std::cin.tie(0);std::cout.tie(0);return 0;}();
+const auto boostIO=[](){std::ios_base::sync_with_stdio(0);std::cin.tie(0);return 0;}();
 const auto editIO=[](){std::cout<<std::fixed<<std::setprecision(PRECISION);std::cout<<std::boolalpha;std::cout.imbue(std::locale(std::cout.getloc(),new custom_tf));return 0;}();
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
