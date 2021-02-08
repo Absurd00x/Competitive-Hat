@@ -56,6 +56,10 @@ std::ostream&out=std::cout;
 const auto boostIO=[](){std::ios_base::sync_with_stdio(0);in.tie(0);return 0;}();
 const auto editIO=[](){out<<std::fixed<<std::setprecision(PRECISION);return 0;}();
 
+// variables
+
+// variables
+
 void read() {
   
 }
