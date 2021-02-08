@@ -69,17 +69,18 @@ void write(std::ostream&cout=std::cout) {
 
 int32_t main()
 {
-	int t;std::cin>>t;
-	fq(t) {
-		
-		read();
-		solve();
-		write();
-	}
+  int t;std::cin>>t;
+  fq(t) {
+    
+    read();
+    solve();
+    write();
+  }
 
   std::cout.flush();
   getchar();
   return 0;
 }
+
 
 
