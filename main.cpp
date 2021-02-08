@@ -1,15 +1,10 @@
 #include <bits/stdc++.h>
-#define accumulate std::accumulate
 #define endl std::endl
 #define for_each std::for_each
-#define list std::list
 #define pair std::pair
-#define queue std::queue
 #define sort stable_sort
-#define stack std::stack
 #define string std::string
 #define swap std::swap
-#define unique std::unique
 #define vector std::vector
 template<typename F,typename S,typename T>struct Triple{F first;S second;T third;Triple(F a,S b,T c){first=a,second=b,third=c;}Triple(){first=F(0),second=S(0),third=T(0);}};
 template<typename F,typename S,typename T>bool operator<(const Triple<F,S,T>&a,const Triple<F,S,T>&b){return(a.first<b.first?true:(a.first==b.first?(a.second<b.second?true:(a.second==b.second?a.third<b.third:false)):false));}
@@ -60,15 +55,23 @@ const auto editIO=[](){std::cout<<std::fixed<<std::setprecision(PRECISION);std::
 inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
 inline int pown(int n,int power,const int modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
 
-void solve(std::istream&cin=std::cin,std::ostream&cout=std::cout) {
+void read(std::istream&cin=std::cin) {
+  
+}
+
+void solve() {
+  
+}
+
+void write(std::ostream&cout=std::cout) {
   
 }
 
 int32_t main()
 {
-  int t;std::cin>>t;
-  fq(t)
-    solve();
+  read();
+  solve();
+  write();
 
   std::cout.flush();
   getchar();
