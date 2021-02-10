@@ -85,7 +85,9 @@ int32_t main()
   }
 
   out.flush();
-  getchar();
+  #ifdef LOCAL_PROJECT
+    getchar();
+  #endif
   return 0;
 }
 
