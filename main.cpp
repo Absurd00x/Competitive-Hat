@@ -64,7 +64,7 @@ void read() {
   
 }
 
-auto solve() {
+void solve() {
   
 }
 
