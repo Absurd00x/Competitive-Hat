@@ -12,8 +12,8 @@ template<typename F,typename S,typename T>std::ostream&operator<<(std::ostream&o
 template<typename F,typename S,typename T>std::istream&operator>>(std::istream&is,Triple<F,S,T>&a){is>>a.first>>a.second>>a.third;return is;}
 template<typename F,typename S>std::ostream&operator<<(std::ostream&os,const pair<F,S>&a){os<<a.first<<' '<<a.second<<'\n';return os;}
 template<typename F,typename S>std::istream&operator>>(std::istream&is,pair<F,S>&a){is>>a.first>>a.second;return is;}
-template<typename T>std::ostream&operator<<(std::ostream&os,const vector<T>&a){for(auto&v:a)os<<v<<' ';os<<'\n';return os;}
-template<typename T>std::ostream&operator<<(std::ostream&os,const std::set<T>&s){for(auto&v:s)os<<v<<' ';os<<'\n';return os;}
+template<typename T>std::ostream&operator<<(std::ostream&os,const vector<T>&a){size_t sz=a.size()-1;for(size_t i=0;i<sz;++i)os<<a[i]<<' ';os<<a.back()<<'\n';return os;}
+template<typename T>std::ostream&operator<<(std::ostream&os,const std::set<T>&s){auto end=std::prev(s.end());for(auto it=s.begin();it!=end;++it)os<<(*it)<<' ';os<<(*end)<<'\n';return os;}
 template<typename T>std::istream&operator>>(std::istream&is,vector<T>&a){for(auto&v:a)is>>v;return is;}
 template<typename A,typename B>void remin(A&a,B b){a=a<b?a:b;}
 template<typename A,typename B>void remax(A&a,B b){a=a>b?a:b;}
