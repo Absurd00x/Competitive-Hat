@@ -32,11 +32,6 @@ typedef vector<bool>vb;
 typedef vector<double>vd;
 typedef vector<vi>vvi;
 typedef vector<vd>vvd;
-#define fi(f,t) for(int i=f;i<int(t);++i)
-#define fj(f,t) for(int j=f;j<int(t);++j)
-#define fk(f,t) for(int k=f;k<int(t);++k)
-#define fv(f,t) for(int v=f;v<int(t);++v)
-#define fq(n) for(int q=0;q<int(n);++q)
 #define within_bounds(x,y,a,b) (x>-1&&y>-1&&x<a&&y<b)
 #define CLEAR "\x1B[2J\x1B[H"
 #define all(x) std::begin(x),std::end(x)
@@ -87,8 +82,8 @@ int32_t main()
   if(BRUTE_CHECK)
     do{gen();}while(stress());
   else {
-    int t;in>>t;
-    fq(t) {
+    int tests;in>>tests;
+    while(tests--) {
       read();
       solve();
       write();
