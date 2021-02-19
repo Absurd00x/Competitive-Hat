@@ -43,8 +43,8 @@ const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
 const double PI = std::acos(-1.0L);
-inline int mod(const int&a,const int&b=MOD){int r=a%b;return(r<0?r+b:r);}
-inline int pown(ll n,ll power,const ll modulo=MOD){int res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
+inline ll mod(const ll&a,const ll&b=MOD){ll r=a%b;return(r<0?r+b:r);}
+inline ll pown(ll n,ll power,const ll modulo=MOD){ll res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
 inline int rand_int(int from,int to){return from+(rand()%static_cast<int>(to-from+1));}
 
 std::istream&in=std::cin;
