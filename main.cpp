@@ -78,6 +78,7 @@ bool stress(){return false;}
 int32_t main()
 {
   const bool BRUTE_CHECK = false;
+  const string TEST_SEP(20,'=');
 
   if(BRUTE_CHECK)
     do{gen();}while(stress());
@@ -85,6 +86,9 @@ int32_t main()
     int tests;in>>tests;
     while(tests--) {
       read();
+      #ifdef LOCAL_PROJECT
+        out << TEST_SEP << endl;
+      #endif
       solve();
       write();
     }
