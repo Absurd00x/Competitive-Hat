@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #define endl std::endl
 #define pair std::pair
-#define sort stable_sort
 #define string std::string
 #define swap std::swap
 #define vector std::vector
