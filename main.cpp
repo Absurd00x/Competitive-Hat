@@ -14,8 +14,6 @@ template<typename F,typename S>std::istream&operator>>(std::istream&is,pair<F,S>
 template<typename T>std::ostream&operator<<(std::ostream&os,const vector<T>&a){size_t sz=a.size()-1;for(size_t i=0;i<sz;++i)os<<a[i]<<' ';os<<a.back()<<'\n';return os;}
 template<typename T>std::ostream&operator<<(std::ostream&os,const std::set<T>&s){auto end=std::prev(s.end());for(auto it=s.begin();it!=end;++it)os<<(*it)<<' ';os<<(*end)<<'\n';return os;}
 template<typename T>std::istream&operator>>(std::istream&is,vector<T>&a){for(auto&v:a)is>>v;return is;}
-template<typename A,typename B>void remin(A&a,B b){a=a<b?a:b;}
-template<typename A,typename B>void remax(A&a,B b){a=a>b?a:b;}
 typedef long long ll;
 typedef unsigned long long ull;
 typedef unsigned int ui;
@@ -42,9 +40,11 @@ const int MOD=1e9+7;
 const int PRECISION=7;
 const double EPS = 1e-6;
 const double PI = std::acos(-1.0L);
-inline ll mod(const ll&a,const ll&b=MOD){ll r=a%b;return(r<0?r+b:r);}
-inline ll pown(ll n,ll power,const ll modulo=MOD){ll res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
-inline int rand_int(int from,int to){return from+(rand()%static_cast<int>(to-from+1));}
+void remin(auto&a,auto b){a=a<b?a:b;}
+void remax(auto&a,auto b){a=a>b?a:b;}
+ll mod(const ll&a,const ll&b=MOD){ll r=a%b;return(r<0?r+b:r);}
+ll pown(ll n,ll power,const ll modulo=MOD){ll res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
+int rand_int(int from,int to){return from+(rand()%static_cast<int>(to-from+1));}
 
 std::istream&in=std::cin;
 std::ostream&out=std::cout;
