@@ -45,6 +45,7 @@ void remax(auto&a,auto b){a=a>b?a:b;}
 ll mod(const ll&a,const ll&b=MOD){ll r=a%b;return(r<0?r+b:r);}
 ll pown(ll n,ll power,const ll modulo=MOD){ll res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
 int rand_int(int from,int to){return from+(rand()%static_cast<int>(to-from+1));}
+string&yn(bool v,string&&y="Yes",string&&n="No"){return(v?y:n);}
 
 std::istream&in=std::cin;
 std::ostream&out=std::cout;
