@@ -55,6 +55,7 @@ const auto editIO=[](){out<<std::fixed<<std::setprecision(PRECISION);return 0;}(
 // variables
 
 // variables
+const bool BRUTE_CHECK = false;
 
 void read() {
   
@@ -77,7 +78,6 @@ bool stress(){return false;}
 
 int32_t main()
 {
-  const bool BRUTE_CHECK = false;
   const string TEST_SEP(20,'=');
 
   if(BRUTE_CHECK)
