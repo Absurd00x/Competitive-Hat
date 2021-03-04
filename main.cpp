@@ -57,11 +57,15 @@ const auto editIO=[](){out<<std::fixed<<std::setprecision(PRECISION);return 0;}(
 // variables
 const bool BRUTE_CHECK = false;
 
-void read() {
+auto solve() {
   
 }
 
-auto solve() {
+void gen(){}
+auto brute(){}
+bool stress(){return false;}
+
+void read() {
   
 }
 
@@ -71,10 +75,6 @@ void write() {
     out.flush();
   #endif
 }
-
-void gen(){}
-auto brute(){}
-bool stress(){return false;}
 
 int32_t main()
 {
