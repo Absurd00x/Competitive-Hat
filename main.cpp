@@ -56,7 +56,7 @@ const auto editIO=[](){out<<std::fixed<<std::setprecision(PRECISION);return 0;}(
 
 // variables
 const bool BRUTE_CHECK = false;
-const bool MULTITESTS = false;
+const bool MULTITESTS = true;
 
 auto solve() {
   
