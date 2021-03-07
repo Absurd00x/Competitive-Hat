@@ -56,6 +56,7 @@ const auto editIO=[](){out<<std::fixed<<std::setprecision(PRECISION);return 0;}(
 
 // variables
 const bool BRUTE_CHECK = false;
+const bool MULTITESTS = false;
 
 auto solve() {
   
@@ -83,7 +84,9 @@ int32_t main()
   if(BRUTE_CHECK)
     do{gen();}while(stress());
   else {
-    int tests;in>>tests;
+    int tests = 1;
+    if (MULTITESTS)
+      in >> tests;
     while(tests--) {
       read();
       #ifdef LOCAL_PROJECT
