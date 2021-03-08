@@ -47,7 +47,7 @@ void remax(auto&a,auto b){a=a>b?a:b;}
 ll mod(const ll&a,const ll&b=MOD){ll r=a%b;return(r<0?r+b:r);}
 ll pown(ll n,ll power,const ll modulo=MOD){ll res=1;while(power){if(power&1)res=mod(res*n,modulo);n=mod(n*n,modulo);power>>=1;}return res;}
 int rand_int(int from,int to){return from+(rand()%static_cast<int>(to-from+1));}
-bool yn(bool v,string&&y="YES",string&&n="NO"){out<<(v?y:n);return v;}
+bool yn(bool v,string&&y="Yes",string&&n="No"){out<<(v?y:n)<<'\n';return v;}
 
 const auto boostIO=[](){std::ios_base::sync_with_stdio(0);in.tie(0);return 0;}();
 const auto editIO=[](){out<<std::fixed<<std::setprecision(PRECISION);return 0;}();
