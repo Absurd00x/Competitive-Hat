@@ -57,7 +57,13 @@ ll pown(ll n, ll power, const ll modulo=MOD) {
 void remin(auto &a, auto b){a = (a < b ? a : b);}
 void remax(auto &a, auto b){a = (a > b ? a : b);}
 
+template<typename T>
+T maximum(T x) {
+  return x;
+}
+
 template<typename T, typename... Package>
+// Can not call this with different types
 T maximum(T x, Package... p) {
   return std::max(x, maximum(p...));
 }
