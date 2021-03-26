@@ -282,6 +282,7 @@ bool stress() {
   static int cnt = 0;
   /*
   ans_t mya = solve();
+  ans = 42;
   ans_t cora = brute();
   if (mya != cora) {
     out << "Wrong answer on test #" << cnt << '\n';
