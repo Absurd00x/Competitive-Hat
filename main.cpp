@@ -258,7 +258,7 @@ ans_t ans = 42;
 
 // ============== Behavior manipulating constants ==============
 const bool BRUTE_CHECK = false;
-const bool MULTITESTS = true;
+const bool MULTITESTS = false;
 
 // ================== Input / output functions =================
 void read() {
@@ -280,8 +280,9 @@ ans_t brute();
 // =========================== Stress ==========================
 bool stress() {
   static int cnt = 0;
+  /*
   ans_t mya = solve();
-  ans_t cora = 42 /*brute()*/;
+  ans_t cora = brute();
   if (mya != cora) {
     out << "Wrong answer on test #" << cnt << '\n';
 
@@ -291,6 +292,7 @@ bool stress() {
     out << "Correct answer: " << cora << endl;
     return false;
   }
+  */
   out << "Passed test #" << ++cnt << endl;
   return true;
 }
