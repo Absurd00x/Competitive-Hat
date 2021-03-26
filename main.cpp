@@ -216,7 +216,6 @@ public:
 
   template<typename T>
   friend Scanner &operator>>(Scanner &is, vector<T>&v) {
-    assert(v.size() > 0);
     for(auto &elem : v)
       is >> elem;
     return is;
