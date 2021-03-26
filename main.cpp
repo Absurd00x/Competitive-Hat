@@ -264,7 +264,7 @@ ans_t ans = 42;
 
 // ============== Behavior manipulating constants ==============
 const bool BRUTE_CHECK = false;
-const bool MULTITESTS = false;
+const bool MULTITESTS = true;
 
 // ================== Input / output functions =================
 void read() {
