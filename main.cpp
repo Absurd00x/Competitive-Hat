@@ -62,10 +62,10 @@ T maximum(T x) {
   return x;
 }
 
-template<typename T, typename... Package>
-// Can not call this with different types
-T maximum(T x, Package... p) {
-  return std::max(x, maximum(p...));
+template<typename T, typename... Pack>
+auto maximum(T x, Pack... p) {
+  using common = typename std::common_type<T, Pack...>::type;
+  return std::max((common)x, (common)maximum(p...));
 }
 
 int rand_int(int from, int to) {
