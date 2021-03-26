@@ -58,6 +58,17 @@ void remin(auto &a, auto b){a = (a < b ? a : b);}
 void remax(auto &a, auto b){a = (a > b ? a : b);}
 
 template<typename T>
+T minimum(T x) {
+  return x;
+}
+
+template<typename T, typename... Pack>
+auto minimum(T x, Pack... p) {
+  using common = typename std::common_type<T, Pack...>::type;
+  return std::min((common)x, (common)minimum(p...));
+}
+
+template<typename T>
 T maximum(T x) {
   return x;
 }
