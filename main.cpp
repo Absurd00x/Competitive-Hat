@@ -97,7 +97,7 @@ private:
     int32_t width = n < 0;
     while(n)
       ++width, n /= 10;
-    return width;
+    return std::max(1, width);
   }
 
   int32_t get_width(const string&s) {
