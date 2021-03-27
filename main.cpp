@@ -161,14 +161,15 @@ public:
   }
 
   void print_matrix(auto begin,auto end,
-                    string sep=" ",
-                    string finish="\n") {
+                    string sep="\n",
+                    string finish="\n\n") {
     int32_t max_width = 1;
     for(auto cur_row = begin; cur_row != end; ++cur_row)
       for(auto &elem : (*cur_row))
         remax(max_width, get_width(elem));
     for(auto cur_row = begin; cur_row != end; ++cur_row)
-      print_range(all(*cur_row), sep, finish, max_width);
+      print_range(all(*cur_row), " ", sep, max_width);
+    (*this) << finish;
   }
 
   void flush() {
