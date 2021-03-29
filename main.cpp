@@ -182,6 +182,12 @@ public:
     return *this;
   }
 
+  template<typename T>
+  Printer &operator<<(const vector<T> &v) {
+    print_range(v.begin(), v.end(), " ", "");
+    return *this;
+  }
+
   Printer &operator<<(const string &s) {
     out << s;
     return *this;
