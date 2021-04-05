@@ -38,7 +38,7 @@ const double PI = std::acos(-1.0L);
 #define debug(x) std::cerr<<__FUNCTION__<<':'<<__LINE__<<' '<<#x<<" = "<<x<<endl;
 
 // ========================= Functions =========================
-ll mod(const ll&a, const ll&b=MOD) {
+ll mod(const ll a, const ll b=MOD) {
   ll r = a % b;
   return (r < 0 ? r + b : r);
 }
@@ -307,6 +307,7 @@ bool stress() {
   ans_t mya = solve();
   ans = 42;
   ans_t cora = brute();
+  ++cnt;
   if (mya != cora) {
     out << "Wrong answer on test #" << cnt << '\n';
 
@@ -317,7 +318,7 @@ bool stress() {
     return false;
   }
   */
-  out << "Passed test #" << ++cnt << endl;
+  out << "Passed test #" << cnt << endl;
   return true;
 }
 
