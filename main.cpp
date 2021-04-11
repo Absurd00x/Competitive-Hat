@@ -25,6 +25,7 @@ typedef unsigned int ui;
 // ========================= Constants =========================
 const int32_t INT_INF = ((1 << 30) - int32_t(1e7));
 const int64_t LONG_INF = (ll(3e18));
+const int INF = (sizeof(int) == 4 ? INT_INF : LONG_INF);
 const int MOD = 1e9+7;
 const int32_t PRECISION = 12;
 const double EPS = 1e-9;
