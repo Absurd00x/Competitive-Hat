@@ -337,6 +337,7 @@ int32_t main()
     int tests = 1;
     if (MULTITESTS)
       in >> tests;
+    auto start = clock();
     while(tests--) {
       read();
       #ifdef LOCAL_PROJECT
@@ -345,6 +346,11 @@ int32_t main()
       solve();
       write();
     }
+    auto finish = clock();
+    #ifdef LOCAL_PROJECT
+      out << TEST_SEP << '\n';
+      out << "Execution time: " << ld(finish - start) / CLOCKS_PER_SEC << '\n';
+    #endif
   }
 
   out.flush();
