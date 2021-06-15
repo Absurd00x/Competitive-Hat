@@ -268,6 +268,7 @@ typedef tuple<double,double,double>td;
 typedef vector<int>vi;
 typedef vector<bool>vb;
 typedef vector<double>vd;
+typedef vector<string>vs;
 typedef vector<vi>vvi;
 typedef vector<vd>vvd;
 
@@ -277,10 +278,12 @@ Printer out;
 
 // ========================= Variables =========================
 typedef int ans_t;
-ans_t ans = 42;
+ans_t ans;
 
 
 // ============== Behavior manipulating constants ==============
+const bool BRUTE_SOLVE = false;
+
 const bool BRUTE_CHECK = false;
 const bool MULTITESTS = true;
 
@@ -343,7 +346,11 @@ int32_t main()
       #ifdef LOCAL_PROJECT
         out << TEST_SEP << endl;
       #endif
-      solve();
+      if (BRUTE_SOLVE) {
+        brute()
+      } else {
+        solve();
+      }
       write();
     }
     auto finish = clock();
@@ -361,9 +368,12 @@ int32_t main()
 }
 
 // ===================== Actual coding part ====================
+void gen(){}
+ans_t brute(){return ans;}
+
 ans_t solve() {
   
 
-  return ans = 42;
+  return ans;
 }
 
