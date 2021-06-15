@@ -347,7 +347,7 @@ int32_t main()
         out << TEST_SEP << endl;
       #endif
       if (BRUTE_SOLVE) {
-        brute()
+        brute();
       } else {
         solve();
       }
