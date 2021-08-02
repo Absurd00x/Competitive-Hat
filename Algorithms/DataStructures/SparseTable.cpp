@@ -26,7 +26,7 @@ public:
   void build(const vi &nums) {
     int sz = (int)nums.size();
     assert(sz > 0);
-    pows = std::__lg(sz - 1) + 1;
+    pows = msb(sz - 1) + 1;
     guts.resize(pows);
     for(int i = 0; i < sz; ++i) {
       guts[0].emplace_back(nums[i], i);
@@ -45,7 +45,7 @@ public:
   pii get_elem_index(int left, int right) {
     int len = right - left;
     assert(len > 0);
-    int pow = std::__lg(len - 1);
+    int pow = msb(len - 1);
     int cur = 1LL << pow;
     return Module::func(guts[pow][left], guts[pow][right - cur]);
   }

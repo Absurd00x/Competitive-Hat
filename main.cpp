@@ -80,6 +80,11 @@ auto maximum(T x, Pack... p) {
   return std::max((common)x, (common)maximum(p...));
 }
 
+template<typename T>
+int msb(T num) {
+  return (num == 0 ? 0 : std::__lg(num));
+}
+
 int rand_int(int from, int to) {
   // On my computer RAND_MAX is 2147483647
   return from + (rand() % static_cast<int>(to - from + 1));
