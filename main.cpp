@@ -337,6 +337,7 @@ bool stress() {
 
 int32_t main()
 {
+  auto start = clock();
   const string TEST_SEP(20,'=');
 
   if(BRUTE_CHECK) {
@@ -347,7 +348,6 @@ int32_t main()
     int tests = 1;
     if (MULTITESTS)
       in >> tests;
-    auto start = clock();
     while(tests--) {
       read();
       #ifdef LOCAL_PROJECT
@@ -360,15 +360,13 @@ int32_t main()
       }
       write();
     }
-    auto finish = clock();
-    #ifdef LOCAL_PROJECT
-      out << TEST_SEP << '\n';
-      out << "Execution time: " << ld(finish - start) / CLOCKS_PER_SEC << '\n';
-    #endif
   }
 
   out.flush();
+  auto finish = clock();
   #ifdef LOCAL_PROJECT
+    out << TEST_SEP << '\n';
+    out << "Execution time: " << ld(finish - start) / CLOCKS_PER_SEC << endl;
     getchar();
   #endif
   return 0;
