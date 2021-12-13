@@ -31,6 +31,9 @@ const int NONE = -1;
 const int ZERO = 0;
 const int ONE = 1;
 const int TWO = 2;
+const int SEED = 42;
+// can't be const
+std::mt19937_64 RNGESUS(SEED);
 const int32_t PRECISION = 12;
 const double EPS = 1e-9;
 const double PI = std::acos(-1.0L);
@@ -90,8 +93,8 @@ int msb(T num) {
 }
 
 int rand_int(int from, int to) {
-  // On my computer RAND_MAX is 2147483647
-  return from + (rand() % static_cast<int>(to - from + 1));
+  std::uniform_int_distribution<int> distribution(from, to);
+  return distribution(RNGESUS);
 }
 
 const auto desync = [](){
