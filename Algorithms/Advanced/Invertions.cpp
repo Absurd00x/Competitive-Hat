@@ -1,4 +1,4 @@
-int calc_inversions(vi vals) {
+int calc_inversions(vi &vals) {
   int cnt = 0;
   std::function<vi(int, int)> merge_sort = [&](int left, int right) {
     vi res;
