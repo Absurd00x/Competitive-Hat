@@ -17,7 +17,7 @@ public:
     return leaders[v] = get_leader(leaders[v]);
   }
 
-  void unite(int a, int b) {
+  bool unite(int a, int b) {
     a = get_leader(a);
     b = get_leader(b);
     if (a != b) {
@@ -28,7 +28,9 @@ public:
       if (ranks[a] == ranks[b]) {
         ++ranks[a];
       }
+      return true;
     }
+    return false;
   }
 };
 
