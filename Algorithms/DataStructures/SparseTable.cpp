@@ -1,3 +1,4 @@
+// 1549D
 struct MinModule {
   static pii func(const pii &a, const pii &b) {
     return std::min(a, b);
@@ -24,30 +25,28 @@ private:
 
 public:
   void build(const vi &nums) {
-    int sz = (int)nums.size();
+    int sz = ssize(nums);
     assert(sz > 0);
     pows = msb(sz - 1) + 1;
     guts.resize(pows);
-    for(int i = 0; i < sz; ++i) {
+    for (int i = 0; i < sz; ++i) {
       guts[0].emplace_back(nums[i], i);
     }
-    for(int pow = 1; pow < pows; ++pow) {
-      int cur = 1LL << pow;
-      int prev = 1LL << (pow - 1);
+    for (int pow = 1; pow < pows; ++pow) {
+      int cur = powb(pow);
+      int prev = powb(pow - 1);
       int size = sz - cur + 1;
       guts[pow].resize(size);
-      for(int j = 0; j < size; ++j) {
+      for (int j = 0; j < size; ++j) {
         guts[pow][j] = Module::func(guts[pow - 1][j], guts[pow - 1][j + prev]);
       }
     }
   };
 
-  pii get_elem_index(int left, int right) {
+  pii get(int left, int right) {
     int len = right - left;
     assert(len > 0);
     int pow = msb(len - 1);
-    int cur = 1LL << pow;
-    return Module::func(guts[pow][left], guts[pow][right - cur]);
+    return Module::func(guts[pow][left], guts[pow][right - powb(pow)]);
   }
 };
-

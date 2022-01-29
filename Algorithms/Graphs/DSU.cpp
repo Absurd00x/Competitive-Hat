@@ -1,13 +1,18 @@
 class DSU {
 private:
   int sz;
-  vi leaders, ranks;
+  vi leaders;
 public:
-  DSU(int sz_) {
+  vi ranks, sizes;
+
+  void build(int sz_) {
     sz = sz_;
-    ranks.resize(sz, 1);
+    ranks.resize(sz);
+    std::fill(all(ranks), ONE);
+    sizes.resize(sz);
+    std::fill(all(sizes), ONE);
     leaders.resize(sz);
-    std::iota(all(leaders), 0LL);
+    std::iota(all(leaders), ZERO);
   }
 
   int get_leader(int v) {
@@ -25,6 +30,7 @@ public:
         std::swap(a, b);
       }
       leaders[b] = a;
+      sizes[a] += sizes[b];
       if (ranks[a] == ranks[b]) {
         ++ranks[a];
       }
@@ -33,4 +39,3 @@ public:
     return false;
   }
 };
-

@@ -1,3 +1,4 @@
+// 345368E
 struct MaxModule {
   static bool cmp(const int &a, const int &b) {
     return a <= b;
@@ -14,14 +15,14 @@ template <typename Module>
 class MinMaxQueue {
 private:
   std::deque<pii> q;
-  int cnt{0}, last{0}, sz{0};
-  int default_value{-1};
+  int cnt = 0, last = 0, sz = 0;
+  int default_value = NONE;
 public:
   void push(int val) {
-    while(false == q.empty() && Module::cmp(q.back().first, val)) {
-      q.pop_back();
+    while (!q.empty() && Module::cmp(q.back().first, val)) {
+      q.pob();
     }
-    q.push_back({val, cnt++});
+    q.pub({val, cnt++});
     ++sz;
   }
 

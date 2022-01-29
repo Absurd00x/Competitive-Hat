@@ -1,3 +1,4 @@
+// 275082L
 class LCA {
 private:
   int pows;
@@ -23,7 +24,7 @@ public:
       depth[cur] = cur_depth;
       last[cur] = (int)tour.size();
       tour.push_back(cur);
-      for(int next : graph[cur]) {
+      for (int next : graph[cur]) {
         if (false == vis[next]) {
           _dfs(next, cur_depth + 1);
           tour.push_back(cur);
@@ -31,7 +32,7 @@ public:
       }
     };
 
-    for(int i = 0; i < vertices; ++i) {
+    for (int i = 0; i < vertices; ++i) {
       if (false == vis[i]) {
         _dfs(i, ZERO);
       }
@@ -41,12 +42,12 @@ public:
     pows = msb(sz - 1) + 1;
     guts.resize(pows);
 
-    for(int pow = 1; pow < pows; ++pow) {
+    for (int pow = 1; pow < pows; ++pow) {
       int cur = ONE << pow;
       int prev = ONE << (pow - 1);
       int size = sz - cur + 1;
       guts[pow].resize(size);
-      for(int i = 0; i < size; ++i) {
+      for (int i = 0; i < size; ++i) {
         if (depth[guts[pow - 1][i]] < depth[guts[pow - 1][i + prev]]) {
           guts[pow][i] = guts[pow - 1][i];
         } else {

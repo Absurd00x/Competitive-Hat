@@ -1,3 +1,4 @@
+// Edu
 struct Elem {
   int sum, add, mult;
 };
@@ -41,6 +42,10 @@ inline void propagate_lazy(int x) {
   guts[x * 2 + 1].mult *= guts[x].mult;
 }
 
+inline void query_update(int x) {
+  guts[0].sum += guts[x].sum;
+}
+
 inline void clear_lazy(int x) {
   guts[x].add = NEUTRAL.add;
   guts[x].mult = NEUTRAL.mult;
@@ -54,18 +59,18 @@ inline void push(int x) {
   clear_lazy(x);
 }
 
-  int qLeft, qRight;
+  int qleft, qright;
 void _update_seg(int x, int left, int right) {
   push(x);
-  if (qLeft <= left && right <= qRight) {
+  if (qleft <= left && right <= qright) {
     update_from_value(x);
     push(x);
   } else {
     int mid = (left + right) / 2;
-    if (qLeft < mid) {
+    if (qleft < mid) {
       _update_seg(x * 2, left, mid);
     }
-    if (mid < qRight) {
+    if (mid < qright) {
       _update_seg(x * 2 + 1, mid, right);
     }
     update_from_children(x);
@@ -74,51 +79,57 @@ void _update_seg(int x, int left, int right) {
 
 void _sum_on_seg(int x, int left, int right) {
   push(x);
-  if (qLeft <= left && right <= qRight) {
-    guts[0].sum += guts[x].sum;
+  if (qleft <= left && right <= qright) {
+    query_update(x);
   } else {
     int mid = (left + right) / 2;
-    if (qLeft < mid) {
+    if (qleft < mid) {
       _sum_on_seg(x * 2, left, mid);
     }
-    if (mid < qRight) {
+    if (mid < qright) {
       _sum_on_seg(x * 2 + 1, mid, right);
     }
   }
 }
 
+void prepare(int left, int right) {
+  qleft = left;
+  qright = (right == NONE ? left + 1 : right);
+  clear(0);
+}
+
 public:
-  SegTree(int sz) {
-    start = ONE << (msb(sz - 1) + 1);
+  void build(int sz) {
+    start = powb(msb(sz - 1) + 1);
     end = start + sz;
     size = start * 2;
 
     guts.resize(size, NEUTRAL);
   }
 
-  SegTree(const vi &init) {
-    int sz = (int)init.size();
-    start = ONE << (msb(sz - 1) + 1);
+  void build(const vi &init) {
+    int sz = ssize(init);
+    start = powb(msb(sz - 1) + 1);
     end = start + sz;
     size = start << 1;
 
     guts.resize(size, NEUTRAL);
     // fill
-    for(int i = 0; i < sz; ++i) {
+    for (int i = 0; i < sz; ++i) {
       guts[i + start].sum = init[i];
     }
     // build
-    for(int i = start - 1; i > 0; --i) {
+    for (int i = start - 1; i > 0; --i) {
       update_from_children(i);
     }
   }
 
   vi propagate() {
-    for(int i = 1; i < end; ++i) {
+    for (int i = 1; i < end; ++i) {
       push(i);
     }
     vi res(end - start);
-    for(int i = 0; i < end - start; ++i) {
+    for (int i = 0; i < end - start; ++i) {
       res[i] = guts[i + start].sum;
     }
     return res;
@@ -126,29 +137,22 @@ public:
 
   void add_to_seg(int value, int left, int right=NONE) {
     // [left, right)
-    qLeft = left;
-    qRight = (right == NONE ? left + 1 : right);
-    clear(0);
+    prepare(left, right);
     guts[0].add = value;
     _update_seg(1, 0, start);
   }
 
   void mult_to_seg(int value, int left, int right=NONE) {
     // [left, right)
-    qLeft = left;
-    qRight = (right == NONE ? left + 1 : right);
-    clear(0);
+    prepare(left, right);
     guts[0].mult = value;
     _update_seg(1, 0, start);
   }
 
   int sum_on_seg(int left, int right=NONE) {
     // [left, right)
-    qLeft = left;
-    qRight = (right == NONE ? left + 1 : right);
-    clear(0);
+    prepare(left, right);
     _sum_on_seg(1, 0, start);
     return guts[0].sum;
   }
 };
-
