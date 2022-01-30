@@ -325,7 +325,7 @@ namespace __DATA_STRUCTURE__ {
 
 } using namespace __DATA_STRUCTURE__;
 namespace __VARIABLES__ {
-  typedef vi ans_t;
+  typedef int ans_t;
   ans_t ans;
 } using namespace __VARIABLES__;
 namespace __BEHAVIOR__ {
