@@ -1,11 +1,13 @@
-// 275082L
+// 1328E
 class LCA {
 private:
   int pows;
-  vi depth, last;
+  vi last;
   vvi guts;
 
 public:
+  vi depth;
+
   void build(vvi &graph) {
     int vertices = (int)graph.size();
     assert(vertices > 0);
