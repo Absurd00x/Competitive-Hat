@@ -2,12 +2,9 @@
 class LCA {
 private:
   int pows;
-  vi last;
+  vi depth, last;
   vvi guts;
-
 public:
-  vi depth;
-
   void build(vvi &graph) {
     int vertices = (int)graph.size();
     assert(vertices > 0);
@@ -77,4 +74,4 @@ public:
     }
     return guts[pow][right - step];
   }
-};
+} lca;
