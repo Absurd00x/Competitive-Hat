@@ -54,6 +54,8 @@ namespace __HAT__ {
     #define bcount(x) (__builtin_popcountll(x))
     #define pub push_back
     #define pob pop_back
+    #define puf push_front
+    #define pof pop_front
     #define eb emplace_back
     #define ff first
     #define ss second
