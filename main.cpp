@@ -310,6 +310,7 @@ namespace __HAT__ {
     typedef tuple<double,double,double>td;
     typedef vector<int>vi;
     typedef vector<pii>vpii;
+    typedef vector<ti>vti;
     typedef vector<bool>vb;
     typedef vector<double>vd;
     typedef vector<string>vs;
