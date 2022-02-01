@@ -15,14 +15,32 @@ inline void clear(int x) {
   guts[x] = NEUTRAL;
 }
 
-inline void update_from_node(int x, int y) {
-  guts[x].sum += guts[y].sum;
-}
-
 inline void update_from_children(int x) {
   clear(x);
   update_from_node(x, x * 2);
   update_from_node(x, x * 2 + 1);
+}
+
+inline void push(int x) {
+  if (has_lazy(x)) {
+    if (x < start) {
+      propagate_lazy(x);
+    }
+    apply_lazy(x);
+    clear_lazy(x);
+  }
+}
+
+void prepare(int left, int right) {
+  qleft = left;
+  qright = (right == NONE ? left + 1 : right);
+  clear(0);
+}
+
+// change after this part
+
+inline void update_from_node(int x, int y) {
+  guts[x].sum += guts[y].sum;
 }
 
 inline void update_from_value(int x) {
@@ -35,11 +53,19 @@ inline void apply_lazy(int x) {
   guts[x].sum *= guts[x].mult;
 }
 
+inline bool has_lazy(int x) {
+  return (guts[x].assigned != NEUTRAL.assigned);
+}
+
 inline void propagate_lazy(int x) {
-  guts[x * 2].add += guts[x].add;
-  guts[x * 2].mult *= guts[x].mult;
-  guts[x * 2 + 1].add += guts[x].add;
-  guts[x * 2 + 1].mult *= guts[x].mult;
+  Elem &par = guts[x];
+  Elem &left = guts[x * 2];
+  Elem &right = guts[x * 2 + 1];
+
+  left.add += par.add;
+  left.mult *= par.mult;
+  right.add += par.add;
+  right.mult *= par.mult;
 }
 
 inline void query_update(int x) {
@@ -49,14 +75,6 @@ inline void query_update(int x) {
 inline void clear_lazy(int x) {
   guts[x].add = NEUTRAL.add;
   guts[x].mult = NEUTRAL.mult;
-}
-
-inline void push(int x) {
-  apply_lazy(x);
-  if (x < start) {
-    propagate_lazy(x);
-  }
-  clear_lazy(x);
 }
 
   int qleft, qright;
@@ -90,12 +108,6 @@ void _sum_on_seg(int x, int left, int right) {
       _sum_on_seg(x * 2 + 1, mid, right);
     }
   }
-}
-
-void prepare(int left, int right) {
-  qleft = left;
-  qright = (right == NONE ? left + 1 : right);
-  clear(0);
 }
 
 public:

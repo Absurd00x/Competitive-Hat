@@ -19,35 +19,6 @@ inline void clear(int x) {
   guts[x].sum = NEUTRAL.sum;
 }
 
-inline void update_from_node(int x, int y) {
-  guts[x].sum += guts[y].sum;
-}
-
-inline void update_from_value(int x) {
-  guts[x].assigned = guts[0].assigned;
-  guts[x].sum = guts[x].assigned * (cright - cleft);
-}
-
-inline void apply_lazy(int x) {
-  guts[x].sum = guts[x].assigned * (cright - cleft);
-}
-
-inline void propagate_lazy(int x) {
-  int mid = (cleft + cright) / 2;
-  guts[guts[x].left].assigned = guts[x].assigned;
-  guts[guts[x].left].sum = guts[x].assigned * (mid - cleft);
-  guts[guts[x].right].assigned = guts[x].assigned;
-  guts[guts[x].right].sum = guts[x].assigned * (cright - mid);
-}
-
-inline void query_update(int x) {
-  guts[0].sum += guts[x].sum;
-}
-
-inline void clear_lazy(int x) {
-  guts[x].assigned = NEUTRAL.assigned;
-}
-
 inline void create(int &child) {
   if (child == NONE) {
     child = ssize(guts);
@@ -67,18 +38,62 @@ inline void set_cur(int left, int right) {
 }
 
 inline void push(int x) {
-  bool has_lazy = guts[x].assigned != NEUTRAL.assigned;
   if (cright - cleft > 1) {
     create(guts[x].left);
     create(guts[x].right);
-    if (has_lazy) {
+    if (has_lazy(x)) {
       propagate_lazy(x);
     }
   }
-  if (has_lazy) {
+  if (has_lazy(x)) {
     apply_lazy(x);
     clear_lazy(x);
   }
+}
+
+void prepare(int left, int right) {
+  qleft = left;
+  qright = (right == NONE ? left + 1 : right);
+  clear(0);
+}
+
+// change after this part
+
+inline void update_from_node(int x, int y) {
+  guts[x].sum += guts[y].sum;
+}
+
+inline void update_from_value(int x) {
+  guts[x].assigned = guts[0].assigned;
+  guts[x].sum = guts[x].assigned * (cright - cleft);
+}
+
+inline void apply_lazy(int x) {
+  guts[x].sum = guts[x].assigned * (cright - cleft);
+}
+
+inline bool has_lazy(int x) {
+  return (guts[x].assigned != NEUTRAL.assigned);
+}
+
+inline void propagate_lazy(int x) {
+  int mid = (cleft + cright) / 2;
+  Elem &par = guts[x];
+  Elem &left = guts[par.left];
+  Elem &right = guts[par.right];
+
+  left.assigned = par.assigned;
+  left.sum = par.assigned * (mid - cleft);
+  right.assigned = par.assigned;
+  right.sum = par.assigned * (cright - mid);
+}
+
+inline void query_update(int x) {
+  guts[0].sum += guts[x].sum;
+}
+
+inline void clear_lazy(int x) {
+  guts[x].assigned = NEUTRAL.assigned;
 }
 
 void _ass_to_seg(int x, int left, int right) {
@@ -95,7 +110,7 @@ void _ass_to_seg(int x, int left, int right) {
     if (mid < qright) {
       _ass_to_seg(guts[x].right, mid, right);
     }
-    update_from_children(x);
+    update_from_children(node);
   }
 }
 
@@ -115,17 +130,10 @@ void _sum_on_seg(int x, int left, int right) {
   }
 }
 
-void prepare(int left, int right) {
-  qleft = left;
-  qright = (right == NONE ? left + 1 : right);
-  clear(0);
-}
-
 public:
-  void build(int min, int max, int mbsize=256) {
+  void build(int min, int max, int mbsize=0) {
     start = min;
     finish = max + 1;
-    mbsize = std::max(ZERO, mbsize - 30);
     int bsize = mbsize * 1024 * 1024;
     guts.resize(bsize / sizeof(Elem), NEUTRAL);
     guts.clear();
@@ -136,7 +144,7 @@ public:
   void ass_to_seg(int value, int left, int right) {
     // [left, right)
     prepare(left, right);
-    guts[0].assigned = value;
+    buff.assigned = value;
     _ass_to_seg(1, start, finish);
   }
 
