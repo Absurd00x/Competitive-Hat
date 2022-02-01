@@ -105,6 +105,7 @@ public:
     size = start * 2;
 
     guts.resize(size, NEUTRAL);
+    std::fill(all(guts), NEUTRAL);
   }
 
   void build(const vi &init) {
@@ -114,6 +115,7 @@ public:
     size = start << 1;
 
     guts.resize(size, NEUTRAL);
+    std::fill(all(guts), NEUTRAL);
     // fill
     for (int i = 0; i < sz; ++i) {
       guts[i + start].sum = init[i];
