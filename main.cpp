@@ -383,6 +383,9 @@ bool stress() {
   ++cnt;
   if (mya != cora) {
     out << "Wrong answer on test #" << cnt << ENDL;
+    if (MULTITESTS) {
+      out << '1' << ENDL;
+    }
 
     // print test here
 
