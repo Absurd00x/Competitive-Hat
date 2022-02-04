@@ -7,10 +7,10 @@ public:
 
   void build(int sz_) {
     sz = sz_;
-    ranks.resize(sz);
-    std::fill(all(ranks), ONE);
-    sizes.resize(sz);
-    std::fill(all(sizes), ONE);
+    ranks.clear();
+    ranks.resize(sz, ONE);
+    sizes.clear();
+    sizes.resize(sz, ONE);
     leaders.resize(sz);
     std::iota(all(leaders), ZERO);
   }

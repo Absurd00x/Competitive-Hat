@@ -29,6 +29,7 @@ public:
     assert(sz > 0);
     pows = msb(sz - 1) + 1;
     guts.resize(pows);
+    guts[0].clear();
     for (int i = 0; i < sz; ++i) {
       guts[0].emplace_back(nums[i], i);
     }
@@ -36,6 +37,7 @@ public:
       int cur = powb(pow);
       int prev = powb(pow - 1);
       int size = sz - cur + 1;
+      guts[pow].clear();
       guts[pow].resize(size);
       for (int j = 0; j < size; ++j) {
         guts[pow][j] = Module::func(guts[pow - 1][j], guts[pow - 1][j + prev]);

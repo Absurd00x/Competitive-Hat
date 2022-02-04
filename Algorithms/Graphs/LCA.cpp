@@ -45,6 +45,7 @@ public:
       int cur = ONE << pow;
       int prev = ONE << (pow - 1);
       int size = sz - cur + 1;
+      guts[pow].clear();
       guts[pow].resize(size);
       for (int i = 0; i < size; ++i) {
         if (depth[guts[pow - 1][i]] < depth[guts[pow - 1][i + prev]]) {
