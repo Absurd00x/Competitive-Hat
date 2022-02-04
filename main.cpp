@@ -31,7 +31,7 @@ namespace __HAT__ {
     const int ZERO = 0;
     const int ONE = 1;
     const int TWO = 2;
-    const int NONE = -1;
+    const int NONE = -42691337;
     const string ENDL = "\n";
     const string UASCII = "abcdefghijklmnopqrstuvwxyz";
     const string LASCII = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
