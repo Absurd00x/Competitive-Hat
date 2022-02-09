@@ -347,7 +347,7 @@ namespace __INTERACTIVE__ {
   }
 
   void ask() {
-    return (BCHECK ? offline_ask() : online_ask());
+    return (BCHECK ? offask() : onask());
   }
 
   void guess() {
@@ -440,4 +440,3 @@ ans_t __PROTOTYPES__::solve() {
   
   return ans;
 }
-
