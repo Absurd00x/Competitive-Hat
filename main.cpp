@@ -59,10 +59,11 @@ namespace __HAT__ {
     #define eb emplace_back
     #define ff first
     #define ss second
-    #define ub std::upper_bound
-    #define lb std::lower_bound
+    #define ub upper_bound
+    #define lb lower_bound
     #define tos std::to_string
     #define np std::next_permutation
+    #define bf std::binary_search
     #define all(x) std::begin(x),std::end(x)
     #define rall(x) std::rbegin(x),std::rend(x)
   } using namespace __MACROS__;
