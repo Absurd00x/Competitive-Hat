@@ -50,8 +50,8 @@ namespace __HAT__ {
     #define ii(x,a,b) (a < x && x < b)
     #define is(x,a,b) (a <= x && x <= b)
     #define wb(x,y,a,b) ((-1 < x && x < a) && (-1 < y && y < b))
-    #define bit(x,a) ((x >> a) & 1)
-    #define bcount(x) (__builtin_popcountll(x))
+    #define gbit(x,a) ((x >> a) & 1)
+    #define cbit(x) (__builtin_popcountll(x))
     #define pub push_back
     #define pob pop_back
     #define puf push_front
