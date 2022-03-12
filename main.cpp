@@ -37,6 +37,7 @@ namespace __HAT__ {
     const string UASCII = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const string DEC = "0123456789";
     const string HEX = "0123456789ABCDEF";
+    const string CLEAR = "\x1B[2J\x1B[H";
     const vector<pair<int, int>> SHIFTS = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
     const int SEED = 42;
     // can't be const
