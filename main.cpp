@@ -58,8 +58,6 @@ namespace __HAT__ {
     #define puf push_front
     #define pof pop_front
     #define eb emplace_back
-    #define ff first
-    #define ss second
     #define ub std::upper_bound
     #define lb std::lower_bound
     #define tos std::to_string
