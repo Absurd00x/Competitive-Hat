@@ -165,7 +165,7 @@ namespace __HAT__ {
     int unique(C &container) {
       std::sort(all(container));
       auto it = std::unique(all(container));
-      int duplicates = container.end() - it;
+      int duplicates = int(container.end() - it);
       container.erase(it, std::end(container));
       return duplicates;
     }
