@@ -14,11 +14,6 @@ private:
   int cleft, cright;
   vector<Elem> guts;
 
-inline void clear(int x) {
-  guts[x].assigned = NEUTRAL.assigned;
-  guts[x].sum = NEUTRAL.sum;
-}
-
 inline void create(int &child) {
   if (child == NONE) {
     child = ssize(guts);
@@ -58,6 +53,11 @@ void prepare(int left, int right) {
 }
 
 // change after this part
+
+inline void clear(int x) {
+  guts[x].assigned = NEUTRAL.assigned;
+  guts[x].sum = NEUTRAL.sum;
+}
 
 inline void update_from_node(int x, int y) {
   guts[x].sum += guts[y].sum;
