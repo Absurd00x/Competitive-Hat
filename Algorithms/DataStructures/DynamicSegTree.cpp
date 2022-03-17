@@ -141,7 +141,7 @@ public:
     guts.pub(NEUTRAL);
   }
 
-  void ass_to_seg(int value, int left, int right) {
+  void ass_to_seg(int value, int left, int right=NONE) {
     // [left, right)
     prepare(left, right);
     guts[0].assigned = value;
