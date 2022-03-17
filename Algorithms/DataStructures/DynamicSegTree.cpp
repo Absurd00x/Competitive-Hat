@@ -144,7 +144,7 @@ public:
   void ass_to_seg(int value, int left, int right) {
     // [left, right)
     prepare(left, right);
-    buff.assigned = value;
+    guts[0].assigned = value;
     _ass_to_seg(1, start, finish);
   }
 
