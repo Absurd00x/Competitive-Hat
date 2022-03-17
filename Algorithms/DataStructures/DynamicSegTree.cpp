@@ -110,7 +110,7 @@ void _ass_to_seg(int x, int left, int right) {
     if (mid < qright) {
       _ass_to_seg(guts[x].right, mid, right);
     }
-    update_from_children(node);
+    update_from_children(x);
   }
 }
 
