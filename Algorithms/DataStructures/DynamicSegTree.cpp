@@ -9,6 +9,7 @@ struct Elem {
 class DynamicSegTree {
 private:
   const Elem NEUTRAL{NONE, NONE, ZERO, ZERO};
+  const int ROOT{ONE}, START{ZERO};
   int start, finish;
   int qleft, qright;
   int cleft, cright;
@@ -46,7 +47,7 @@ inline void push(int x) {
   }
 }
 
-void prepare(int left, int right) {
+inline void prepare(int left, int right) {
   qleft = left;
   qright = (right == NONE ? left + 1 : right);
   clear(0);
@@ -77,7 +78,7 @@ inline bool has_lazy(int x) {
 }
 
 inline void propagate_lazy(int x) {
-  int mid = (cleft + cright) / 2;
+  int mid = cleft + (cright - cleft) / 2;
   Elem &par = guts[x];
   Elem &left = guts[par.left];
   Elem &right = guts[par.right];
@@ -96,7 +97,7 @@ inline void clear_lazy(int x) {
   guts[x].assigned = NEUTRAL.assigned;
 }
 
-void _ass_to_seg(int x, int left, int right) {
+void _update_seg(int x, int left, int right) {
   set_cur(left, right);
   push(x);
   if (qleft <= left && right <= qright) {
@@ -105,16 +106,16 @@ void _ass_to_seg(int x, int left, int right) {
   } else {
     int mid = (left + right) / 2;
     if (qleft < mid) {
-      _ass_to_seg(guts[x].left, left, mid);
+      _update_seg(guts[x].left, left, mid);
     }
     if (mid < qright) {
-      _ass_to_seg(guts[x].right, mid, right);
+      _update_seg(guts[x].right, mid, right);
     }
     update_from_children(x);
   }
 }
 
-void _sum_on_seg(int x, int left, int right) {
+void _get_seg(int x, int left, int right) {
   set_cur(left, right);
   push(x);
   if (qleft <= left && right <= qright) {
@@ -122,10 +123,10 @@ void _sum_on_seg(int x, int left, int right) {
   } else {
     int mid = (left + right) / 2;
     if (qleft < mid) {
-      _sum_on_seg(guts[x].left, left, mid);
+      _get_seg(guts[x].left, left, mid);
     }
     if (mid < qright) {
-      _sum_on_seg(guts[x].right, mid, right);
+      _get_seg(guts[x].right, mid, right);
     }
   }
 }
@@ -145,13 +146,13 @@ public:
     // [left, right)
     prepare(left, right);
     guts[0].assigned = value;
-    _ass_to_seg(1, start, finish);
+    _update_seg(ONE, start, finish);
   }
 
   int sum_on_seg(int left, int right=NONE) {
     // [left, right)
     prepare(left, right);
-    _sum_on_seg(1, start, finish);
+    _get_seg(ONE, start, finish);
     return guts[0].sum;
   }
 } kappa;

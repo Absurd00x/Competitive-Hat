@@ -1,172 +1,196 @@
-// Edu
+// Edu part 2 step 2 F
 struct Elem {
-  int sum, add, mult;
+  int assigned, sum;
 };
+const Elem NEUTRAL{-ONE, ZERO};
 
 class SegTree {
-// can add number to segment and
-// can multiply numbers on segment
-private:
-  const Elem NEUTRAL{ZERO, ZERO, ONE};
-  int start, end, size;
+protected:
+  const int ROOT{ONE}, START{ZERO};
+  int cleft, cright;
+  int nodes, elems;
+  int qleft, qright;
   vector<Elem> guts;
 
-inline void clear(int x) {
-  guts[x] = NEUTRAL;
-}
-
-inline void update_from_children(int x) {
-  clear(x);
-  update_from_node(x, x * 2);
-  update_from_node(x, x * 2 + 1);
-}
-
-inline void push(int x) {
-  if (has_lazy(x)) {
-    if (x < start) {
-      propagate_lazy(x);
-    }
-    apply_lazy(x);
-    clear_lazy(x);
+  inline void clear(int x) {
+    guts[x] = NEUTRAL;
   }
-}
 
-void prepare(int left, int right) {
-  qleft = left;
-  qright = (right == NONE ? left + 1 : right);
-  clear(0);
-}
+  inline void update_from_children(int x) {
+    clear(x);
+    update_from_node(x, x * 2);
+    update_from_node(x, x * 2 + 1);
+  }
 
-// change after this part
+  void set_cur(int left, int right) {
+    cleft = left;
+    cright = right;
+  }
 
-inline void update_from_node(int x, int y) {
-  guts[x].sum += guts[y].sum;
-}
+  void push(int x) {
+    if (has_lazy(x)) {
+      if (cright - cleft > 1) {
+        propagate_lazy(x);
+      }
+      apply_lazy(x);
+      clear_lazy(x);
+    }
+  }
 
-inline void update_from_value(int x) {
-  guts[x].add += guts[0].add;
-  guts[x].mult *= guts[0].mult;
-}
+  void prepare(int left, int right) {
+    qleft = left;
+    qright = (right == NONE ? left + 1 : right);
+    clear(0);
+  }
 
-inline void apply_lazy(int x) {
-  guts[x].sum += guts[x].add;
-  guts[x].sum *= guts[x].mult;
-}
+  int get_mid() {
+    int len = cright - cleft;
+    int sb = msb(len);
+    return cleft + minimum(powb(sb - 1) + (len - powb(sb)), powb(sb));
+  }
 
-inline bool has_lazy(int x) {
-  return (guts[x].assigned != NEUTRAL.assigned);
-}
-
-inline void propagate_lazy(int x) {
-  Elem &par = guts[x];
-  Elem &left = guts[x * 2];
-  Elem &right = guts[x * 2 + 1];
-
-  left.add += par.add;
-  left.mult *= par.mult;
-  right.add += par.add;
-  right.mult *= par.mult;
-}
-
-inline void query_update(int x) {
-  guts[0].sum += guts[x].sum;
-}
-
-inline void clear_lazy(int x) {
-  guts[x].add = NEUTRAL.add;
-  guts[x].mult = NEUTRAL.mult;
-}
-
-  int qleft, qright;
-void _update_seg(int x, int left, int right) {
-  push(x);
-  if (qleft <= left && right <= qright) {
-    update_from_value(x);
+  void _query(int x, int left, int right, auto on_node) {
+    set_cur(left, right);
     push(x);
-  } else {
-    int mid = (left + right) / 2;
-    if (qleft < mid) {
-      _update_seg(x * 2, left, mid);
+    if (qleft <= left && right <= qright) {
+      on_node(x);
+      push(x);
+    } else {
+      int mid = get_mid();
+      if (qleft < mid) {
+        _query(x * 2, left, mid, on_node);
+      }
+      if (mid < qright) {
+        _query(x * 2 + 1, mid, right, on_node);
+      }
+      update_from_children(x);
     }
-    if (mid < qright) {
-      _update_seg(x * 2 + 1, mid, right);
-    }
-    update_from_children(x);
   }
-}
 
-void _sum_on_seg(int x, int left, int right) {
-  push(x);
-  if (qleft <= left && right <= qright) {
-    query_update(x);
-  } else {
-    int mid = (left + right) / 2;
-    if (qleft < mid) {
-      _sum_on_seg(x * 2, left, mid);
-    }
-    if (mid < qright) {
-      _sum_on_seg(x * 2 + 1, mid, right);
+  void _traverse(int x, int left, int right, auto on_leaf) {
+    set_cur(left, right);
+    push(x);
+    if (cright - cleft == 1) {
+      on_leaf(x);
+    } else {
+      int mid = get_mid();
+      _traverse(x * 2, left, mid, on_leaf);
+      _traverse(x * 2 + 1, mid, right, on_leaf);
+      update_from_children(x);
     }
   }
-}
+
+  void traverse(auto delegate) {
+    _traverse(ROOT, START, elems, delegate);
+  }
+
+  void query(auto delegate) {
+    _query(ROOT, START, elems, delegate);
+  }
+
+  virtual void update_from_node(int x, int y) {
+    x = x, y = y;
+    throw std::logic_error("update_from_node() not implemented");
+  }
+
+  virtual bool has_lazy(int x) {
+    x = x;
+    throw std::logic_error("has_lazy() not implemented");
+  }
+
+  virtual void propagate_lazy(int x) {
+    x = x;
+    throw std::logic_error("propagate_lazy() not implemented");
+  }
+
+  virtual void apply_lazy(int x) {
+    x = x;
+    throw std::logic_error("apply_lazy() not implemented");
+  }
+
+  virtual void clear_lazy(int x) {
+    x = x;
+    throw std::logic_error("clear_lazy() not implemented");
+  }
+
+  void wipe(int sz) {
+    elems = sz;
+    nodes = elems * 2;
+    guts.clear();
+    guts.resize(nodes, NEUTRAL);
+  }
+};
+
+class STAddAss : public SegTree {
+private:
+  void update_from_node(int x, int y) {
+    guts[x].sum += guts[y].sum;
+  }
+
+  bool has_lazy(int x) {
+    return (guts[x].assigned != NEUTRAL.assigned);
+  }
+
+  void propagate_lazy(int x) {
+    int mid = get_mid();
+    Elem &par = guts[x];
+    Elem &left = guts[x * 2];
+    Elem &right = guts[x * 2 + 1];
+
+    left.assigned = par.assigned;
+    left.sum = par.assigned * (mid - cleft);
+    right.assigned = par.assigned;
+    right.sum = par.assigned * (cright - mid);
+  }
+
+  void apply_lazy(int x) {
+    guts[x].sum = guts[x].assigned * (cright - cleft);
+  }
+
+  void clear_lazy(int x) {
+    guts[x].assigned = NEUTRAL.assigned;
+  }
 
 public:
   void build(int sz) {
-    start = powb(msb(sz - 1) + 1);
-    end = start + sz;
-    size = start * 2;
-
-    guts.clear();
-    guts.resize(size, NEUTRAL);
+    wipe(sz);
   }
 
   void build(const vi &init) {
-    int sz = ssize(init);
-    start = powb(msb(sz - 1) + 1);
-    end = start + sz;
-    size = start << 1;
-
-    guts.clear();
-    guts.resize(size, NEUTRAL);
-    // fill
-    for (int i = 0; i < sz; ++i) {
-      guts[i + start].sum = init[i];
-    }
-    // build
-    for (int i = start - 1; i > 0; --i) {
-      update_from_children(i);
-    }
+    build(ssize(init));
+    // fill and build
+    auto on_leaf = [&](int x) {
+      guts[x].sum = init[cleft];
+    };
+    traverse(on_leaf);
   }
 
   vi propagate() {
-    for (int i = 1; i < end; ++i) {
-      push(i);
-    }
-    vi res(end - start);
-    for (int i = 0; i < end - start; ++i) {
-      res[i] = guts[i + start].sum;
-    }
+    vi res(elems);
+    auto on_leaf = [&](int x) {
+      res[cleft] = guts[x].sum;
+    };
+    traverse(on_leaf);
     return res;
   }
 
-  void add_to_seg(int value, int left, int right=NONE) {
-    // [left, right)
+  void ass_to_seg(int value, int left, int right=NONE) {
     prepare(left, right);
-    guts[0].add = value;
-    _update_seg(1, 0, start);
-  }
-
-  void mult_to_seg(int value, int left, int right=NONE) {
-    // [left, right)
-    prepare(left, right);
-    guts[0].mult = value;
-    _update_seg(1, 0, start);
+    guts[0].assigned = value;
+    auto update_from_value = [&](int x) {
+      guts[x].assigned = guts[0].assigned;
+      guts[x].sum = guts[x].assigned * (cright - cleft);
+    };
+    query(update_from_value);
   }
 
   int sum_on_seg(int left, int right=NONE) {
-    // [left, right)
     prepare(left, right);
-    _sum_on_seg(1, 0, start);
+    auto query_update = [&](int x) {
+      guts[0].sum += guts[x].sum;
+    };
+    query(query_update);
     return guts[0].sum;
   }
-};
+} kappa;
+
