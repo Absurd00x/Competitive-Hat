@@ -123,15 +123,15 @@ protected:
 
 class STAddAss : public SegTree {
 private:
-  void update_from_node(int x, int y) {
+  void update_from_node(int x, int y) override {
     guts[x].sum += guts[y].sum;
   }
 
-  bool has_lazy(int x) {
+  bool has_lazy(int x) override {
     return (guts[x].assigned != NEUTRAL.assigned);
   }
 
-  void propagate_lazy(int x) {
+  void propagate_lazy(int x) override {
     int mid = get_mid();
     Elem &par = guts[x];
     Elem &left = guts[x * 2];
@@ -143,11 +143,11 @@ private:
     right.sum = par.assigned * (cright - mid);
   }
 
-  void apply_lazy(int x) {
+  void apply_lazy(int x) override {
     guts[x].sum = guts[x].assigned * (cright - cleft);
   }
 
-  void clear_lazy(int x) {
+  void clear_lazy(int x) override {
     guts[x].assigned = NEUTRAL.assigned;
   }
 
