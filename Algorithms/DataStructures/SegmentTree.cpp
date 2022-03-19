@@ -12,11 +12,11 @@ protected:
   int qleft, qright;
   vector<Elem> guts;
 
-  inline void clear(int x) {
+  void clear(int x) {
     guts[x] = NEUTRAL;
   }
 
-  inline void update_from_children(int x) {
+  void update_from_children(int x) {
     clear(x);
     update_from_node(x, x * 2);
     update_from_node(x, x * 2 + 1);

@@ -15,25 +15,25 @@ private:
   int cleft, cright;
   vector<Elem> guts;
 
-inline void create(int &child) {
+void create(int &child) {
   if (child == NONE) {
     child = ssize(guts);
     guts.pub(NEUTRAL);
   }
 }
 
-inline void update_from_children(int x) {
+void update_from_children(int x) {
   clear(x);
   update_from_node(x, guts[x].left);
   update_from_node(x, guts[x].right);
 }
 
-inline void set_cur(int left, int right) {
+void set_cur(int left, int right) {
   cleft = left;
   cright = right;
 }
 
-inline void push(int x) {
+void push(int x) {
   if (cright - cleft > 1) {
     create(guts[x].left);
     create(guts[x].right);
@@ -47,7 +47,7 @@ inline void push(int x) {
   }
 }
 
-inline void prepare(int left, int right) {
+void prepare(int left, int right) {
   qleft = left;
   qright = (right == NONE ? left + 1 : right);
   clear(0);
@@ -55,29 +55,29 @@ inline void prepare(int left, int right) {
 
 // change after this part
 
-inline void clear(int x) {
+void clear(int x) {
   guts[x].assigned = NEUTRAL.assigned;
   guts[x].sum = NEUTRAL.sum;
 }
 
-inline void update_from_node(int x, int y) {
+void update_from_node(int x, int y) {
   guts[x].sum += guts[y].sum;
 }
 
-inline void update_from_value(int x) {
+void update_from_value(int x) {
   guts[x].assigned = guts[0].assigned;
   guts[x].sum = guts[x].assigned * (cright - cleft);
 }
 
-inline void apply_lazy(int x) {
+void apply_lazy(int x) {
   guts[x].sum = guts[x].assigned * (cright - cleft);
 }
 
-inline bool has_lazy(int x) {
+bool has_lazy(int x) {
   return (guts[x].assigned != NEUTRAL.assigned);
 }
 
-inline void propagate_lazy(int x) {
+void propagate_lazy(int x) {
   int mid = cleft + (cright - cleft) / 2;
   Elem &par = guts[x];
   Elem &left = guts[par.left];
@@ -89,11 +89,11 @@ inline void propagate_lazy(int x) {
   right.sum = par.assigned * (cright - mid);
 }
 
-inline void query_update(int x) {
+void query_update(int x) {
   guts[0].sum += guts[x].sum;
 }
 
-inline void clear_lazy(int x) {
+void clear_lazy(int x) {
   guts[x].assigned = NEUTRAL.assigned;
 }
 

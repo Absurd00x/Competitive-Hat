@@ -49,7 +49,7 @@ private:
     return res;
   }
 
-  inline void sanity_check(int x) {
+  void sanity_check(int x) {
     bool is_small = (x <= 1LL * max_num * max_num);
     bool not_zero = (x != ZERO);
     assert(is_small);
@@ -95,7 +95,7 @@ public:
     power_built = fast_factorization;
   }
 
-  inline bool is_prime(int x) {
+  bool is_prime(int x) {
     sanity_check(x);
     if (x <= max_num) {
       return (lp[x] == x);
@@ -109,14 +109,14 @@ public:
     return true;
   }
 
-  inline vpii factorize(int x) {
+  vpii factorize(int x) {
     sanity_check(x);
     return (x <= max_num
             ? (power_built ? extreme_factorize(x) : fast_factorize(x))
             : sqrt_factorize(x));
   }
 
-  inline vi get_all_divisors(int x, bool sort=false) {
+  vi get_all_divisors(int x, bool sort=false) {
     vpii factors = factorize(x);
     vi divisors;
     int num = 1;
@@ -142,7 +142,7 @@ public:
     return divisors;
   }
 
-  inline int count_all_divisors(int x) {
+  int count_all_divisors(int x) {
     vpii factors = factorize(x);
     int res = 1;
     for (auto &[_, power] : factors) {
@@ -151,7 +151,7 @@ public:
     return res;
   }
 
-  inline int count_prime_divisors(int x) {
+  int count_prime_divisors(int x) {
     vpii factors = factorize(x);
     int res = 0;
     for (auto &[_, power] : factors) {
