@@ -268,8 +268,7 @@ namespace __HAT__ {
         }
         (*this) << ENDL;
       }
-      (*this) << "\n\n";
-      (*this).flush();
+      (*this) << endl;
     }
 
     bool yn(bool v, string&&y="Yes", string&&n="No"){
