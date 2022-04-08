@@ -183,6 +183,47 @@ namespace __HAT__ {
   private:
     std::ostream &out;
 
+    int32_t get_width(int n) {
+      int32_t width = (n < 0);
+      // exactly while (n)
+      while (n) {
+        ++width;
+        n /= 10;
+      }
+      return maximum(1, width);
+    }
+
+    int32_t get_width(const string&s) {
+      return int32_t(s.size());
+    }
+
+    int32_t get_width(double f) {
+      // integer part includes signum
+      // +1 because point separator
+      return get_width((int)f) + PRECISION + 1;
+    }
+
+    template<typename F, typename S>
+    int32_t get_width(const pair<F, S> &p) {
+      return get_width(p.first) + get_width(p.second) + 1;
+    }
+
+    template<typename... Args, size_t... N>
+    int32_t __get_width(const tuple<Args...> &t, std::index_sequence<N...>) {
+      return (int32_t)(get_width(std::get<N>(t)) + ...);
+    }
+
+    template<typename... Args>
+    int32_t get_width(const tuple<Args...> &t) {
+      return int32_t(__get_width(t, std::make_index_sequence<sizeof...(Args)>{}));
+    }
+
+    static void __width(Printer &stream, int32_t width_diff) {
+      while(width_diff --> 0) {
+        stream << ' ';
+      }
+    }
+
     template<typename... Args, size_t... N>
     static Printer &print_tuple(Printer &os,
                                 const tuple<Args...> &t,
@@ -199,8 +240,8 @@ namespace __HAT__ {
       out << std::fixed << std::setprecision(PRECISION);
     }
     void print(auto begin, auto end,
-                     string sep="\n",
-                     string finish="\n") {
+               const string sep="\n",
+               const string finish="\n") {
       for (auto elem = begin; elem != end; ++elem) {
         if (elem != begin) {
           (*this) << sep;
@@ -208,6 +249,27 @@ namespace __HAT__ {
         (*this) << (*elem);
       }
       (*this) << finish;
+    }
+
+    void print_matrix(auto begin,auto end) {
+      int32_t max_width = 1;
+      for (auto cur_row = begin; cur_row != end; ++cur_row) {
+        for (auto &elem : (*cur_row)) {
+          remax(max_width, get_width(elem));
+        }
+      }
+      for (auto cur_row = begin; cur_row != end; ++cur_row) {
+        for (auto elem = (*cur_row).begin(); elem != (*cur_row).end(); ++elem) {
+          if (elem != (*cur_row).begin()) {
+            (*this) << ' ';
+          }
+          __width(*this, max_width - get_width(*elem));
+          (*this) << (*elem);
+        }
+        (*this) << ENDL;
+      }
+      (*this) << "\n\n";
+      (*this).flush();
     }
 
     bool yn(bool v, string&&y="Yes", string&&n="No"){
