@@ -33,9 +33,6 @@ namespace __HAT__ {
     const int TWO = 2;
     const int NONE = -42691337;
     const string ENDL = "\n";
-    const string LASCII = "abcdefghijklmnopqrstuvwxyz";
-    const string UASCII = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const string DEC = "0123456789";
     const string HEX = "0123456789ABCDEF";
     const string CLEAR = "\x1B[2J\x1B[H";
     const vector<pair<int, int>> SHIFTS = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
@@ -175,9 +172,6 @@ namespace __HAT__ {
       return (int)container.size();
     }
 
-    ll calc_ap(ll start, ll end, ll num, const ll modulo=LINF) {
-      return mod((start + end) * num / 2, modulo);
-    }
   } using namespace __FUNCTIONS__;
   class Printer {
   private:
