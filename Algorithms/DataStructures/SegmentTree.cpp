@@ -1,4 +1,5 @@
 // Edu part 2 step 2 F
+// https://codeforces.com/contest/1110/submission/49588803
 struct Elem {
   int assigned, sum;
 };

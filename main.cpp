@@ -392,25 +392,9 @@ namespace __BEHAVIOR__ {
   const bool MULTITESTS = true;
 } using namespace __BEHAVIOR__;
 namespace __INTERACTIVE__ {
-  /*
-  void offask() {
-    
-  }
-
-  void onask() {
-    
-  }
-
   void ask() {
-    return (BCHECK ? offask() : onask());
+    return;
   }
-
-  void guess() {
-    if (BCHECK) {
-      return;
-    }
-  }
-  */
 } using namespace __INTERACTIVE__;
 namespace __IO__ {
   void read() {
