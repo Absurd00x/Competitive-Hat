@@ -33,8 +33,6 @@ namespace __HAT__ {
     const int TWO = 2;
     const int NONE = -42691337;
     const string ENDL = "\n";
-    const string HEX = "0123456789ABCDEF";
-    const string CLEAR = "\x1B[2J\x1B[H";
     const vector<pair<int, int>> SHIFTS = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
     const int SEED = 42;
     // can't be const
@@ -44,9 +42,6 @@ namespace __HAT__ {
     const double PI = std::acos((double)-ONE);
   } using namespace __CONSTANTS__;
   namespace __MACROS__ {
-    #define ir(x,a,b) (a <= x && x < b)
-    #define ii(x,a,b) (a < x && x < b)
-    #define is(x,a,b) (a <= x && x <= b)
     #define wb(x,y,a,b) ((-1 < x && x < a) && (-1 < y && y < b))
     #define gbit(x,a) ((x >> a) & 1)
     #define cbit(x) (__builtin_popcountll(x))
