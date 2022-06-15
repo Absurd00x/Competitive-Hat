@@ -1,21 +1,25 @@
-//1423B
+// 1423B
+typedef tuple<int, int, int> ti;
 class Dinic {
 private:
   int nodes;
-  vector<qi> edges; // from, to, capacity, flow
-  vi ptr, levels;
-  vvi g; // [node][i] = edge index
+  const int NONE = -1;
+  const int ZERO = 0;
+  const int INF = numeric_limits<int>::max();
+  vector<tuple<int, int, int, int>> edges; // from, to, capacity, flow
+  vector<int> ptr, levels;
+  vector<vector<int>> g; // [node][i] = edge index
 
   void _add_edge(int from, int to, int cap) {
-    g[from].pub(ssize(edges));
-    edges.eb(from, to, cap, ZERO);
-    g[to].pub(ssize(edges));
-    edges.eb(to, from, cap, ZERO);
+    g[from].push_back(edges.size());
+    edges.emplace_back(from, to, cap, ZERO);
+    g[to].push_back(edges.size());
+    edges.emplace_back(to, from, cap, ZERO);
   }
 
   int source, sink;
   bool _bfs() {
-    std::fill(all(levels), NONE);
+    std::fill(levels.begin(), levels.end(), NONE);
     std::queue<int> q;
     q.push(source);
     levels[source] = 0;
@@ -38,7 +42,7 @@ private:
     if (cur_flow == 0 || v == sink) {
       return cur_flow;
     }
-    for (int &i = ptr[v]; i < ssize(g[v]); ++i) {
+    for (int &i = ptr[v]; i < (int)g[v].size(); ++i) {
       int edge_index = g[v][i];
       auto &[from, to, cap, flow] = edges[edge_index];
       auto &[_, __, ___, back_flow] = edges[edge_index ^ 1];
@@ -58,7 +62,7 @@ private:
   int _dinic() {
     int max_flow = 0;
     while (_bfs()) {
-      std::fill(all(ptr), ZERO);
+      std::fill(ptr.begin(), ptr.end(), ZERO);
       while (int pushed = _dfs(source, INF)) {
         max_flow += pushed;
       }

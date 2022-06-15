@@ -1,22 +1,27 @@
 // 1328E
 class LCA {
 private:
+  const int NONE = -1;
   int pows;
-  vi depth, last;
-  vvi guts;
+  vector<int> depth, last;
+  vector<vector<int>> guts;
+
+  int msb(int num) {
+    return (num == 0 ? 0 : std::__lg(num));
+  };
 public:
-  void build(vvi &graph) {
+  void build(vector<vector<int>> &graph) {
     int vertices = (int)graph.size();
     assert(vertices > 0);
-    guts.resize(ONE);
+    guts.resize(1);
 
     last.resize(vertices);
     depth.resize(vertices);
 
-    vi &tour = guts[0];
+    vector<int> &tour = guts[0];
     tour.resize(2 * vertices + 10);
     tour.clear();
-    vb vis(vertices, false);
+    vector<bool> vis(vertices, false);
 
     std::function<void(int, int)> _dfs = [&](int cur, int cur_depth) {
       vis[cur] = true;
@@ -33,7 +38,7 @@ public:
 
     for (int i = 0; i < vertices; ++i) {
       if (false == vis[i]) {
-        _dfs(i, ZERO);
+        _dfs(i, 0);
       }
     }
 
@@ -42,8 +47,8 @@ public:
     guts.resize(pows);
 
     for (int pow = 1; pow < pows; ++pow) {
-      int cur = ONE << pow;
-      int prev = ONE << (pow - 1);
+      int cur = 1 << pow;
+      int prev = 1 << (pow - 1);
       int size = sz - cur + 1;
       guts[pow].clear();
       guts[pow].resize(size);
@@ -69,7 +74,7 @@ public:
 
     int len = right - left;
     int pow = msb(len - 1);
-    int step = ONE << pow;
+    int step = 1 << pow;
     if (depth[guts[pow][left]] < depth[guts[pow][right - step]]) {
       return guts[pow][left];
     }

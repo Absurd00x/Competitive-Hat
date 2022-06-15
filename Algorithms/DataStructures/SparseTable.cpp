@@ -1,4 +1,5 @@
 // 1549D
+typedef pair<int, int> pii;
 struct MinModule {
   static pii func(const pii &a, const pii &b) {
     return std::min(a, b);
@@ -20,12 +21,16 @@ struct GCDModule {
 template <typename Module>
 class SparseTable {
 private:
-  vector<vpii> guts;
+  vector<vector<pii>> guts;
   int pows;
 
+  int msb(int num) {
+    return (num == 0 ? 0 : std::__lg(num));
+  }
+
 public:
-  void build(const vi &nums) {
-    int sz = ssize(nums);
+  void build(const vector<int> &nums) {
+    int sz = (int)nums.size();
     assert(sz > 0);
     pows = msb(sz - 1) + 1;
     guts.resize(pows);
@@ -34,8 +39,8 @@ public:
       guts[0].emplace_back(nums[i], i);
     }
     for (int pow = 1; pow < pows; ++pow) {
-      int cur = powb(pow);
-      int prev = powb(pow - 1);
+      int cur = 1 << pow;
+      int prev = 1 << (pow - 1);
       int size = sz - cur + 1;
       guts[pow].clear();
       guts[pow].resize(size);
@@ -49,6 +54,6 @@ public:
     int len = right - left;
     assert(len > 0);
     int pow = msb(len - 1);
-    return Module::func(guts[pow][left], guts[pow][right - powb(pow)]);
+    return Module::func(guts[pow][left], guts[pow][right - (1 << pow)]);
   }
 };

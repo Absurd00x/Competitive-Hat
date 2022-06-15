@@ -14,15 +14,15 @@ struct MinModule {
 template <typename Module>
 class MinMaxQueue {
 private:
-  std::deque<pii> q;
+  std::deque<pair<int, int>> q;
   int cnt = 0, last = 0, sz = 0;
-  int default_value = NONE;
+  int default_value = -1;
 public:
   void push(int val) {
     while (!q.empty() && Module::cmp(q.back().first, val)) {
-      q.pob();
+      q.pop_back();
     }
-    q.pub({val, cnt++});
+    q.push_back({val, cnt++});
     ++sz;
   }
 
@@ -38,7 +38,7 @@ public:
   }
 
   int get_minmax() {
-    return q.size() ? q.front().first : default_value;
+    return (q.size() ? q.front().first : default_value);
   }
 
   int get_size() {

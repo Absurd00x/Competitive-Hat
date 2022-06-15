@@ -1,5 +1,7 @@
 // 185A
 class Matrix {
+typedef vector<int> vi;
+typedef vector<vi> vvi;
 private:
   vvi _mul(const Matrix &other) {
     assert(m == other.n);
@@ -7,7 +9,7 @@ private:
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < m; ++j) {
         for (int k = 0; k < other.m; ++k) {
-          madd(res[i][k], guts[i][j] * other.guts[j][k]);
+          (res[i][k] += int(1LL * guts[i][j] * other.guts[j][k] % MOD)) %= MOD;
         }
       }
     }
@@ -20,11 +22,11 @@ public:
 
   Matrix(vvi &mat) {
     std::swap(guts, mat);
-    n = ssize(guts);
-    m = ssize(guts[0]);
+    n = (int)guts.size();
+    m = (int)guts[0].size();
   }
 
-  Matrix(int n_) : guts(n_, vi(n_, ZERO)) {
+  Matrix(int n_) : guts(n_, vi(n_, 0)) {
     n = m = n_;
     for (int i = 0; i < n; ++i) {
       guts[i][i] = 1;
@@ -41,8 +43,8 @@ public:
     std::swap(guts, res);
   }
 
-  void pown(int power) {
-    int sz = ssize(guts);
+  void pown(int64_t power) {
+    int sz = (int)guts.size();
     Matrix powered(guts);
     (*this) = Matrix(sz);
     while (power > 0) {

@@ -1,5 +1,5 @@
-// 762A
 class Factorization {
+typedef vector<pair<int, int>> vpii;
 public:
   vector<int32_t> primes, lp, powered, max_power;
 private:
@@ -33,7 +33,7 @@ private:
   vpii sqrt_factorize(int x) {
     int32_t root = (int32_t)sqrtl(x) + 1;
     vpii res;
-    for (ui i = 0; i < primes.size() && primes[i] <= root; ++i) {
+    for (int i = 0; i < (int)primes.size() && primes[i] <= root; ++i) {
       int cnt = 0;
       while (x % primes[i] == 0) {
         x /= primes[i];
@@ -44,14 +44,14 @@ private:
       }
     }
     if (x > 1) {
-      res.emplace_back(x, ONE);
+      res.emplace_back(x, 1);
     }
     return res;
   }
 
   void sanity_check(int x) {
     bool is_small = (x <= 1LL * max_num * max_num);
-    bool not_zero = (x != ZERO);
+    bool not_zero = (x != 0);
     assert(is_small);
     assert(not_zero);
   }
@@ -73,11 +73,11 @@ public:
           max_power[i] = 1;
         }
       }
-      for (ui j = 0; j < primes.size(); ++j) {
+      for (int j = 0; j < (int)primes.size(); ++j) {
         if (primes[j] > lp[i]) {
           break;
         }
-        ll next = 1LL * i * primes[j];
+        int64_t next = 1LL * i * primes[j];
         if (next > max_num) {
           break;
         }
@@ -101,8 +101,8 @@ public:
       return (lp[x] == x);
     }
     int32_t root = (int32_t)sqrtl(x) + 1;
-    for (ui i = 0; i < primes.size() && primes[i] <= root; ++i) {
-      if (x % primes[i] == ZERO) {
+    for (int i = 0; i < (int)primes.size() && primes[i] <= root; ++i) {
+      if (x % primes[i] == 0) {
         return false;
       }
     }
@@ -116,9 +116,9 @@ public:
             : sqrt_factorize(x));
   }
 
-  vi get_all_divisors(int x, bool sort=false) {
+  vector<int> get_all_divisors(int x, bool sort=false) {
     vpii factors = factorize(x);
-    vi divisors;
+    vector<int> divisors;
     int num = 1;
     std::function<void(int)> dfs = [&](int ind) {
       if (ind == (int)factors.size()) {
@@ -135,9 +135,9 @@ public:
       }
       num /= cur;
     };
-    dfs(ZERO);
+    dfs(0);
     if (sort) {
-      std::sort(all(divisors));
+      std::sort(divisors.begin(), divisors.end());
     }
     return divisors;
   }

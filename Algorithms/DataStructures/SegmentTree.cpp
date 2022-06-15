@@ -1,13 +1,14 @@
 // Edu part 2 step 2 F
-// https://codeforces.com/contest/1110/submission/49588803
 struct Elem {
   int assigned, sum;
 };
-const Elem NEUTRAL{-ONE, ZERO};
+const Elem NEUTRAL{-1, 0};
 
 class SegTree {
 protected:
-  const int ROOT{ONE}, START{ZERO};
+typedef vector<int> vi;
+  const static int NONE{-1};
+  const int ROOT{1}, START{0};
   int cleft, cright;
   int nodes, elems;
   int qleft, qright;
@@ -46,8 +47,8 @@ protected:
 
   int get_mid() {
     int len = cright - cleft;
-    int sb = msb(len);
-    return cleft + minimum(powb(sb - 1) + (len - powb(sb)), powb(sb));
+    int sb = (len == 0 ? 0 : std::__lg(len));
+    return cleft + std::min((1 << (sb - 1)) + (len - (1 << sb)), int(1 << sb));
   }
 
   void _query(int x, int left, int right, auto on_node) {
@@ -81,12 +82,45 @@ protected:
     }
   }
 
+  void _descend(int x, int left, int right, auto on_node) {
+    set_cur(left, right);
+    push(x);
+    if (qleft <= left && right <= qright) {
+      bool add_me = on_node(x);
+      if (!add_me && cright - cleft > 1) {
+        int mid = get_mid();
+        bool add_left = on_node(x * 2);
+        if (add_left) {
+          qright = right;
+          _descend(x * 2 + 1, mid, right, on_node);
+        } else {
+          qright = mid;
+          _descend(x * 2, left, mid, on_node);
+        }
+        update_from_children(x);
+      }
+    } else {
+      int mid = get_mid();
+      if (qleft < mid) {
+        _descend(x * 2, left, mid, on_node);
+      }
+      if (mid < qright) {
+        _descend(x * 2 + 1, mid, right, on_node);
+      }
+      update_from_children(x);
+    }
+  }
+
   void traverse(auto delegate) {
     _traverse(ROOT, START, elems, delegate);
   }
 
   void query(auto delegate) {
     _query(ROOT, START, elems, delegate);
+  }
+
+  void descend(auto delegate) {
+    _descend(ROOT, START, elems, delegate);
   }
 
   virtual void update_from_node(int x, int y) {
@@ -158,7 +192,7 @@ public:
   }
 
   void build(const vi &init) {
-    build(ssize(init));
+    build((int)init.size());
     // fill and build
     auto on_leaf = [&](int x) {
       guts[x].sum = init[cleft];
@@ -193,5 +227,20 @@ public:
     query(query_update);
     return guts[0].sum;
   }
-} kappa;
 
+  int kth_order(int k) {
+    prepare(0, elems);
+    int last = NONE;
+    auto query_update = [&](int x) {
+      int next = guts[0].sum + guts[x].sum;
+      if (next < k) {
+        guts[0].sum = next;
+        return true;
+      }
+      last = cleft;
+      return false;
+    };
+    descend(query_update);
+    return last;
+  }
+} kappa;

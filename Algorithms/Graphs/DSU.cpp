@@ -2,18 +2,18 @@
 class DSU {
 private:
   int sz;
-  vi leaders;
+  vector<int> leaders;
 public:
-  vi ranks, sizes;
+  vector<int> ranks, sizes;
 
   void build(int sz_) {
     sz = sz_;
     ranks.clear();
-    ranks.resize(sz, ONE);
+    ranks.resize(sz, 1);
     sizes.clear();
-    sizes.resize(sz, ONE);
+    sizes.resize(sz, 1);
     leaders.resize(sz);
-    std::iota(all(leaders), ZERO);
+    std::iota(leaders.begin(), leaders.end(), 0);
   }
 
   int get_leader(int v) {
@@ -39,4 +39,4 @@ public:
     }
     return false;
   }
-};
+} dsu;
