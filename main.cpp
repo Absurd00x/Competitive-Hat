@@ -2,7 +2,8 @@
 
 using namespace std;
 
-#define int int64_t
+typedef long long ll
+#define int ll
 
 const auto boostIO = []() {
   ios_base::sync_with_stdio(0);
