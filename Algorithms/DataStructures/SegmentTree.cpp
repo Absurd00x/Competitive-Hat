@@ -3,11 +3,11 @@ struct Elem {
   int assigned, sum;
 };
 const Elem NEUTRAL{-1, 0};
+const int NONE{-1};
 
 class SegTree {
 protected:
 typedef vector<int> vi;
-  const static int NONE{-1};
   const int ROOT{1}, START{0};
   int cleft, cright;
   int nodes, elems;
@@ -89,6 +89,7 @@ typedef vector<int> vi;
       bool add_me = on_node(x);
       if (!add_me && cright - cleft > 1) {
         int mid = get_mid();
+        push(x * 2);
         bool add_left = on_node(x * 2);
         if (add_left) {
           qright = right;
@@ -173,9 +174,7 @@ private:
     Elem &right = guts[x * 2 + 1];
 
     left.assigned = par.assigned;
-    left.sum = par.assigned * (mid - cleft);
     right.assigned = par.assigned;
-    right.sum = par.assigned * (cright - mid);
   }
 
   void apply_lazy(int x) override {
@@ -213,8 +212,7 @@ public:
     prepare(left, right);
     guts[0].assigned = value;
     auto update_from_value = [&](int x) {
-      guts[x].assigned = guts[0].assigned;
-      guts[x].sum = guts[x].assigned * (cright - cleft);
+      guts[x].assigned = value;
     };
     query(update_from_value);
   }

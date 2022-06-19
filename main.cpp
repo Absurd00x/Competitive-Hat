@@ -2,7 +2,7 @@
 
 using namespace std;
 
-typedef long long ll
+typedef long long ll;
 #define int ll
 
 const auto boostIO = []() {
