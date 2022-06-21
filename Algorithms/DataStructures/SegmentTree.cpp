@@ -1,8 +1,8 @@
-// Edu part 2 step 2 F
+const int INF = 9e18;
 struct Elem {
-  int assigned, sum;
+  int sum, min, add, assigned, val;
 };
-const Elem NEUTRAL{-1, 0};
+const Elem NEUTRAL{0, INF, 0, -1, -1};
 const int NONE{-1};
 
 class SegTree {
@@ -20,7 +20,14 @@ typedef vector<int> vi;
 
   void update_from_children(int x) {
     clear(x);
+    int tleft = cleft, tright = cright, mid = get_mid();
+    cright = mid;
+    push(x * 2);
+    cright = tright;
     update_from_node(x, x * 2);
+    cleft = mid;
+    push(x * 2 + 1);
+    cleft = tleft;
     update_from_node(x, x * 2 + 1);
   }
 
@@ -31,7 +38,7 @@ typedef vector<int> vi;
 
   void push(int x) {
     if (has_lazy(x)) {
-      if (cright - cleft > 1) {
+      if (x * 2 < nodes) {
         propagate_lazy(x);
       }
       apply_lazy(x);
@@ -47,7 +54,8 @@ typedef vector<int> vi;
 
   int get_mid() {
     int len = cright - cleft;
-    int sb = (len == 0 ? 0 : std::__lg(len));
+    assert(len > 1);
+    int sb = std::__lg(len);
     return cleft + std::min((1 << (sb - 1)) + (len - (1 << sb)), int(1 << sb));
   }
 
@@ -65,6 +73,7 @@ typedef vector<int> vi;
       if (mid < qright) {
         _query(x * 2 + 1, mid, right, on_node);
       }
+      set_cur(left, right);
       update_from_children(x);
     }
   }
@@ -78,6 +87,7 @@ typedef vector<int> vi;
       int mid = get_mid();
       _traverse(x * 2, left, mid, on_leaf);
       _traverse(x * 2 + 1, mid, right, on_leaf);
+      set_cur(left, right);
       update_from_children(x);
     }
   }
@@ -87,18 +97,25 @@ typedef vector<int> vi;
     push(x);
     if (qleft <= left && right <= qright) {
       bool add_me = on_node(x);
-      if (!add_me && cright - cleft > 1) {
-        int mid = get_mid();
-        push(x * 2);
-        bool add_left = on_node(x * 2);
-        if (add_left) {
+      if (!add_me) {
+        if (cright - cleft == 1) {
           qright = right;
-          _descend(x * 2 + 1, mid, right, on_node);
         } else {
-          qright = mid;
-          _descend(x * 2, left, mid, on_node);
+          int mid = get_mid();
+          cright = mid;
+          push(x * 2);
+          bool add_left = on_node(x * 2);
+          cright = right;
+          if (add_left) {
+            qright = right;
+            _descend(x * 2 + 1, mid, right, on_node);
+          } else {
+            qright = mid;
+            _descend(x * 2, left, mid, on_node);
+          }
+          set_cur(left, right);
+          update_from_children(x);
         }
-        update_from_children(x);
       }
     } else {
       int mid = get_mid();
@@ -108,6 +125,7 @@ typedef vector<int> vi;
       if (mid < qright) {
         _descend(x * 2 + 1, mid, right, on_node);
       }
+      set_cur(left, right);
       update_from_children(x);
     }
   }
@@ -157,32 +175,51 @@ typedef vector<int> vi;
   }
 };
 
-class STAddAss : public SegTree {
+class STAddAssKth : public SegTree {
 private:
   void update_from_node(int x, int y) override {
+    // в детях не бывает лени, когда от них обновляешься
     guts[x].sum += guts[y].sum;
+    if (guts[x].min > guts[y].min) {
+      guts[x].min = guts[y].min;
+      guts[x].val = guts[y].val;
+    }
   }
 
   bool has_lazy(int x) override {
-    return (guts[x].assigned != NEUTRAL.assigned);
+    bool assigned_lazy = (guts[x].assigned != NEUTRAL.assigned);
+    bool add_lazy = (guts[x].add != NEUTRAL.add);
+    return assigned_lazy || add_lazy;
   }
 
   void propagate_lazy(int x) override {
-    int mid = get_mid();
+    // int mid = get_mid();
     Elem &par = guts[x];
     Elem &left = guts[x * 2];
     Elem &right = guts[x * 2 + 1];
 
-    left.assigned = par.assigned;
-    right.assigned = par.assigned;
+    if (par.assigned != NEUTRAL.assigned) {
+      left.assigned = par.assigned;
+      right.assigned = par.assigned;
+      left.add = right.add = 0;
+    }
+    left.add += par.add;
+    right.add += par.add;
   }
 
   void apply_lazy(int x) override {
-    guts[x].sum = guts[x].assigned * (cright - cleft);
+    if (guts[x].assigned != NEUTRAL.assigned) {
+      guts[x].sum = guts[x].assigned * (cright - cleft);
+      guts[x].min = guts[x].assigned;
+      guts[x].val = cleft;
+    }
+    guts[x].sum += guts[x].add * (cright - cleft);
+    guts[x].min += guts[x].add;
   }
 
   void clear_lazy(int x) override {
     guts[x].assigned = NEUTRAL.assigned;
+    guts[x].add = NEUTRAL.add;
   }
 
 public:
@@ -194,7 +231,8 @@ public:
     build((int)init.size());
     // fill and build
     auto on_leaf = [&](int x) {
-      guts[x].sum = init[cleft];
+      guts[x].sum = guts[x].min = init[cleft];
+      guts[x].val = cleft;
     };
     traverse(on_leaf);
   }
@@ -210,28 +248,39 @@ public:
 
   void ass_to_seg(int value, int left, int right=NONE) {
     prepare(left, right);
-    guts[0].assigned = value;
     auto update_from_value = [&](int x) {
       guts[x].assigned = value;
     };
     query(update_from_value);
   }
 
-  int sum_on_seg(int left, int right=NONE) {
+  void add_to_seg(int value, int left, int right=NONE) {
     prepare(left, right);
-    auto query_update = [&](int x) {
-      guts[0].sum += guts[x].sum;
+    auto update_from_value = [&](int x) {
+      guts[x].add += value;
     };
-    query(query_update);
-    return guts[0].sum;
+    query(update_from_value);
   }
 
-  int kth_order(int k) {
-    prepare(0, elems);
+  int min_on_seg(int left, int right=NONE) {
+    prepare(left, right);
+    auto query_update = [&](int x) {
+      if (guts[0].min > guts[x].min) {
+        guts[0].min = guts[x].min;
+        guts[0].val = guts[x].val;
+      }
+    };
+    query(query_update);
+    return guts[0].val;
+  }
+
+  int kth_order(int k, int left, int right) {
+    prepare(left, right);
+    --k; // Теперь ищем элемент, в котором сумма строго больше
     int last = NONE;
     auto query_update = [&](int x) {
       int next = guts[0].sum + guts[x].sum;
-      if (next < k) {
+      if (next <= k) {
         guts[0].sum = next;
         return true;
       }
@@ -242,3 +291,4 @@ public:
     return last;
   }
 } kappa;
+
