@@ -11,7 +11,15 @@ const auto boostIO = []() {
   return 0;
 }();
 
+
+
 signed main() {
-  
+  int tests;
+  while (tests --> 0) {
+    read();
+    solve();
+    write();
+  }
+  cout.flush();
   return 0;
 }
