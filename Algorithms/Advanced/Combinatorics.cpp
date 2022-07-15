@@ -13,28 +13,26 @@ private:
     return res;
   }
 
-  int mdiv(int num, int den) {
-    return int((1LL * num * this->pown(den, MOD - 2)) % MOD);
-  }
 public:
-  vector<int> facts;
+  vector<int> facts, ifacts;
   Combinatorics(const int A) {
     facts.resize(A + 1);
-    facts[0] = 1;
+    ifacts.resize(A + 1);
+    facts[0] = ifacts[0] = 1;
     for (int i = 1; i <= A; ++i) {
       facts[i] = int((1LL * facts[i - 1] * i) % MOD);
+    }
+    ifacts[A] = this->pown(facts[A], MOD - 2);
+    for (int i = A - 1; i > 0; --i) {
+      ifacts[i] = ((i + 1) * ifacts[i + 1]) % MOD;
     }
   }
 
   int cnk(int n, int k) {
-    int num = facts[n];
-    int den = int((1LL * facts[k] * facts[n - k]) % MOD);
-    return mdiv(num, den);
+    return (facts[n] * ((ifacts[k] * ifacts[n - k]) % MOD)) % MOD;
   }
 
   int ank(int n, int k) {
-    int num = facts[n];
-    int den = facts[n - k];
-    return mdiv(num, den);
+    return (facts[n] * ifacts[n - k]) % MOD;
   }
 } comb(2e5);
