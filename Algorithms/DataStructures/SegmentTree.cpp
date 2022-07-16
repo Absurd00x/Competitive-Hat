@@ -97,26 +97,41 @@ typedef vector<int> vi;
     push(x);
     if (qleft <= left && right <= qright) {
       bool add_me = on_node(x);
-      if (!add_me) {
-        if (cright - cleft == 1) {
-          (rl ? qleft = left : qright = right);
+      if (add_me) {
+        return;
+      }
+      if (cright - cleft == 1) {
+        (rl ? qleft = left : qright = right);
+        return;
+      }
+      int mid = get_mid();
+      if (!rl) {
+        cright = mid;
+        push(x * 2);
+        bool add_left = on_node(x * 2);
+        cright = right;
+        if (add_left) {
+          qright = right;
+          descend(x * 2 + 1, mid, right, on_node, rl);
         } else {
-          int mid = get_mid();
-          (rl ? cleft : cright) = mid;
-          push(x * 2 + rl);
-          bool add_child = on_node(x * 2 + rl);
-          (rl ? cleft : cright) = mid;
-          if (add_child) {
-            (rl ? qleft = left : qright = right);
-            descend(x * 2 + !rl, mid, right, on_node, rl);
-          } else {
-            (rl ? qleft : qright) = mid;
-            descend(x * 2 + rl, left, mid, on_node, rl);
-          }
-          set_cur(left, right);
-          update_from_children(x);
+          qright = mid;
+          descend(x * 2, left, mid, on_node, rl);
+        }
+      } else {
+        cleft = mid;
+        push(x * 2 + 1);
+        bool add_right = on_node(x * 2 + 1);
+        cleft = left;
+        if (add_right) {
+          qleft = left;
+          descend(x * 2, left, mid, on_node, rl);
+        } else {
+          qleft = mid;
+          descend(x * 2 + 1, mid, right, on_node, rl);
         }
       }
+      set_cur(left, right);
+      update_from_children(x);
     } else {
       int mid = get_mid();
       if (qleft < mid) {
