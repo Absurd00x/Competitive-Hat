@@ -3,7 +3,9 @@
 using namespace std;
 
 typedef long long ll;
+typedef long double ld;
 #define int ll
+#define double ld
 
 const auto boostIO = []() {
   ios_base::sync_with_stdio(0);
