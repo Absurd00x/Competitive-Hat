@@ -10,6 +10,8 @@ typedef long double ld;
 const auto boostIO = []() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
+  cout << fixed;
+  cout.precision(12);
   return 0;
 }();
 
