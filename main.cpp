@@ -7,6 +7,9 @@ typedef long double ld;
 #define int ll
 #define double ld
 
+#define all(x) std::begin(x),std::end(x)
+#define rall(x) std::rbegin(x),std::rend(x)
+
 const auto boostIO = []() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
