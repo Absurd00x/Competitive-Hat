@@ -10,7 +10,7 @@ private:
     return (num == 0 ? 0 : std::__lg(num));
   };
 public:
-  void build(vector<vector<int>> &graph) {
+  void build(vector<vector<int>> &graph, vector<int> &roots) {
     int vertices = (int)graph.size();
     assert(vertices > 0);
     guts.resize(1);
@@ -36,10 +36,14 @@ public:
       }
     };
 
-    for (int i = 0; i < vertices; ++i) {
-      if (false == vis[i]) {
-        _dfs(i, 0);
+    for (int root : roots) {
+      if (!vis[root]) {
+        _dfs(root, 0);
       }
+    }
+
+    for (int i = 0; i < vertices; ++i) {
+      assert(vis[i]);
     }
 
     int sz = (int)tour.size();
