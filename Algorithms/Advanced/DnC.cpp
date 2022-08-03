@@ -42,9 +42,9 @@ private:
     return res;
   }
 public:
-  int64_t calc_inversions(vi &vals) {
+  ll calc_inversions(vi &vals) {
     assert(!vals.empty());
-    int64_t cnt = 0;
+    ll cnt = 0;
     auto delegate = [&](int &l, int &r, vi &left, vi &right, vi &res) {
       if (left[l] <= right[r]) {
         res.push_back(left[l++]);

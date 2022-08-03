@@ -43,7 +43,7 @@ public:
     std::swap(guts, res);
   }
 
-  void pown(int64_t power) {
+  void pown(ll power) {
     int sz = (int)guts.size();
     Matrix powered(guts);
     (*this) = Matrix(sz);
