@@ -46,9 +46,12 @@ public:
     // у корня и его детей суффиксная ссылка всегда ведёт в корень
     for (int child : guts[0].next) {
       if (child != 0) {
-        for (int next : guts[child].next) {
+        for (int i = 0; i < K; ++i) {
+          int &next = guts[v].next[i];
           if (next != 0) {
             q.push(next);
+          } else {
+            next = guts[0].to[i];
           }
         }
       }
