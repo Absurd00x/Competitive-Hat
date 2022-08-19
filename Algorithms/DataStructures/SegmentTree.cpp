@@ -6,7 +6,7 @@ const Elem NEUTRAL{0, INF, 0, -1, -1};
 const int NONE{-1};
 
 class SegTree {
-protected:
+private:
 typedef vector<int> vi;
   const int ROOT{1}, START{0};
   int cleft, cright;
@@ -59,7 +59,7 @@ typedef vector<int> vi;
     return cleft + std::min((1 << (sb - 1)) + (len - (1 << sb)), int(1 << sb));
   }
 
-  void _query(int x, int left, int right, auto on_node) {
+  void query(int x, int left, int right, auto on_node) {
     set_cur(left, right);
     push(x);
     if (qleft <= left && right <= qright) {
@@ -68,116 +68,113 @@ typedef vector<int> vi;
     } else {
       int mid = get_mid();
       if (qleft < mid) {
-        _query(x * 2, left, mid, on_node);
+        query(x * 2, left, mid, on_node);
       }
       if (mid < qright) {
-        _query(x * 2 + 1, mid, right, on_node);
+        query(x * 2 + 1, mid, right, on_node);
       }
       set_cur(left, right);
       update_from_children(x);
     }
   }
 
-  void _traverse(int x, int left, int right, auto on_leaf) {
+  void traverse(int x, int left, int right, auto on_leaf) {
     set_cur(left, right);
     push(x);
     if (cright - cleft == 1) {
       on_leaf(x);
     } else {
       int mid = get_mid();
-      _traverse(x * 2, left, mid, on_leaf);
-      _traverse(x * 2 + 1, mid, right, on_leaf);
+      traverse(x * 2, left, mid, on_leaf);
+      traverse(x * 2 + 1, mid, right, on_leaf);
       set_cur(left, right);
       update_from_children(x);
     }
   }
 
-  void _descend(int x, int left, int right, auto on_node) {
+  void descend(int x, int left, int right, auto on_node, const bool rl) {
     set_cur(left, right);
     push(x);
     if (qleft <= left && right <= qright) {
       bool add_me = on_node(x);
-      if (!add_me) {
-        if (cright - cleft == 1) {
+      if (add_me) {
+        return;
+      }
+      if (cright - cleft == 1) {
+        (rl ? qleft = left : qright = right);
+        return;
+      }
+      int mid = get_mid();
+      if (!rl) {
+        cright = mid;
+        push(x * 2);
+        bool add_left = on_node(x * 2);
+        cright = right;
+        if (add_left) {
           qright = right;
+          descend(x * 2 + 1, mid, right, on_node, rl);
         } else {
-          int mid = get_mid();
-          cright = mid;
-          push(x * 2);
-          bool add_left = on_node(x * 2);
-          cright = right;
-          if (add_left) {
-            qright = right;
-            _descend(x * 2 + 1, mid, right, on_node);
-          } else {
-            qright = mid;
-            _descend(x * 2, left, mid, on_node);
-          }
-          set_cur(left, right);
-          update_from_children(x);
+          qright = mid;
+          descend(x * 2, left, mid, on_node, rl);
+        }
+      } else {
+        cleft = mid;
+        push(x * 2 + 1);
+        bool add_right = on_node(x * 2 + 1);
+        cleft = left;
+        if (add_right) {
+          qleft = left;
+          descend(x * 2, left, mid, on_node, rl);
+        } else {
+          qleft = mid;
+          descend(x * 2 + 1, mid, right, on_node, rl);
         }
       }
+      set_cur(left, right);
+      update_from_children(x);
     } else {
       int mid = get_mid();
       if (qleft < mid) {
-        _descend(x * 2, left, mid, on_node);
+        descend(x * 2, left, mid, on_node, rl);
       }
       if (mid < qright) {
-        _descend(x * 2 + 1, mid, right, on_node);
+        descend(x * 2 + 1, mid, right, on_node, rl);
       }
       set_cur(left, right);
       update_from_children(x);
     }
   }
 
-  void traverse(auto delegate) {
-    _traverse(ROOT, START, elems, delegate);
-  }
-
-  void query(auto delegate) {
-    _query(ROOT, START, elems, delegate);
-  }
-
-  void descend(auto delegate) {
-    _descend(ROOT, START, elems, delegate);
-  }
-
-  virtual void update_from_node(int x, int y) {
-    x = x, y = y;
-    throw std::logic_error("update_from_node() not implemented");
-  }
-
-  virtual bool has_lazy(int x) {
-    x = x;
-    throw std::logic_error("has_lazy() not implemented");
-  }
-
-  virtual void propagate_lazy(int x) {
-    x = x;
-    throw std::logic_error("propagate_lazy() not implemented");
-  }
-
-  virtual void apply_lazy(int x) {
-    x = x;
-    throw std::logic_error("apply_lazy() not implemented");
-  }
-
-  virtual void clear_lazy(int x) {
-    x = x;
-    throw std::logic_error("clear_lazy() not implemented");
-  }
-
-  void wipe(int sz) {
+public:
+  void build(int sz) {
     elems = sz;
     nodes = elems * 2;
     guts.clear();
     guts.resize(nodes, NEUTRAL);
   }
-};
 
-class STAddAssKth : public SegTree {
-private:
-  void update_from_node(int x, int y) override {
+// ===================== change this =====================
+
+  vi propagate() {
+    vi res(elems);
+    auto on_leaf = [&](int x) {
+      res[cleft] = guts[x].sum;
+    };
+    traverse(ROOT, START, elems, on_leaf);
+    return res;
+  }
+
+  void build(const vi &init) {
+    build((int)init.size());
+    // fill and build
+    auto on_leaf = [&](int x) {
+      guts[x].sum = guts[x].min = init[cleft];
+      guts[x].val = cleft;
+    };
+    traverse(ROOT, START, elems, on_leaf);
+  }
+
+  void update_from_node(int x, int y) {
     // в детях не бывает лени, когда от них обновляешься
     guts[x].sum += guts[y].sum;
     if (guts[x].min > guts[y].min) {
@@ -186,13 +183,13 @@ private:
     }
   }
 
-  bool has_lazy(int x) override {
+  bool has_lazy(int x) {
     bool assigned_lazy = (guts[x].assigned != NEUTRAL.assigned);
     bool add_lazy = (guts[x].add != NEUTRAL.add);
     return assigned_lazy || add_lazy;
   }
 
-  void propagate_lazy(int x) override {
+  void propagate_lazy(int x) {
     // int mid = get_mid();
     Elem &par = guts[x];
     Elem &left = guts[x * 2];
@@ -207,7 +204,7 @@ private:
     right.add += par.add;
   }
 
-  void apply_lazy(int x) override {
+  void apply_lazy(int x) {
     if (guts[x].assigned != NEUTRAL.assigned) {
       guts[x].sum = guts[x].assigned * (cright - cleft);
       guts[x].min = guts[x].assigned;
@@ -217,41 +214,18 @@ private:
     guts[x].min += guts[x].add;
   }
 
-  void clear_lazy(int x) override {
+  void clear_lazy(int x) {
     guts[x].assigned = NEUTRAL.assigned;
     guts[x].add = NEUTRAL.add;
   }
 
 public:
-  void build(int sz) {
-    wipe(sz);
-  }
-
-  void build(const vi &init) {
-    build((int)init.size());
-    // fill and build
-    auto on_leaf = [&](int x) {
-      guts[x].sum = guts[x].min = init[cleft];
-      guts[x].val = cleft;
-    };
-    traverse(on_leaf);
-  }
-
-  vi propagate() {
-    vi res(elems);
-    auto on_leaf = [&](int x) {
-      res[cleft] = guts[x].sum;
-    };
-    traverse(on_leaf);
-    return res;
-  }
-
   void ass_to_seg(int value, int left, int right=NONE) {
     prepare(left, right);
     auto update_from_value = [&](int x) {
       guts[x].assigned = value;
     };
-    query(update_from_value);
+    query(ROOT, START, elems, update_from_value);
   }
 
   void add_to_seg(int value, int left, int right=NONE) {
@@ -259,7 +233,7 @@ public:
     auto update_from_value = [&](int x) {
       guts[x].add += value;
     };
-    query(update_from_value);
+    query(ROOT, START, elems, update_from_value);
   }
 
   int min_on_seg(int left, int right=NONE) {
@@ -270,7 +244,7 @@ public:
         guts[0].val = guts[x].val;
       }
     };
-    query(query_update);
+    query(ROOT, START, elems, query_update);
     return guts[0].val;
   }
 
@@ -287,7 +261,8 @@ public:
       last = cleft;
       return false;
     };
-    descend(query_update);
+    descend(ROOT, START, elems, query_update, false);
     return last;
   }
 } kappa;
+
