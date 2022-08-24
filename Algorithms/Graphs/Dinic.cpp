@@ -73,8 +73,7 @@ private:
 public:
   void build(int nodes_, vector<ti> &edges_) {
     nodes = nodes_;
-    g.clear();
-    g.resize(nodes);
+    g.assign(nodes, 0);
     levels.resize(nodes);
     ptr.resize(nodes);
     edges.clear();

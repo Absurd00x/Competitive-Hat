@@ -171,8 +171,7 @@ typedef vector<int> vi;
   void wipe(int sz) {
     elems = sz;
     nodes = elems * 2;
-    guts.clear();
-    guts.resize(nodes, NEUTRAL);
+    guts.assign(nodes, NEUTRAL);
   }
 };
 

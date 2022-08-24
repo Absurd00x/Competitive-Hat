@@ -8,10 +8,8 @@ public:
 
   void build(int sz_) {
     sz = sz_;
-    ranks.clear();
-    ranks.resize(sz, 1);
-    sizes.clear();
-    sizes.resize(sz, 1);
+    ranks.assign(sz, 1);
+    sizes.assign(sz, 1);
     leaders.resize(sz);
     std::iota(leaders.begin(), leaders.end(), 0);
   }
