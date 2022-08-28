@@ -106,6 +106,14 @@ namespace hashing {
     return res;
   }();
 
+  hash get(const string &s) {
+    hash res(0, 0);
+    for (char c : s) {
+      res = res * POWS[1] + hash(c, c);
+    }
+    return res;
+  }
+
   class HashedString {
   private:
     int sz;
@@ -120,9 +128,7 @@ namespace hashing {
       }
     }
     hash get(int l, int r) const {
-      if (l >= r) {
-        return hash(0, 0);
-      }
+      assert(l < r);
       // [l, r)
       return pref[r] - pref[l] * POWS[r - l];
     }
