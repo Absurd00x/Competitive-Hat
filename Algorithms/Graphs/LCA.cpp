@@ -3,7 +3,7 @@ class LCA {
 private:
   const int NONE = -1;
   int pows;
-  vector<int> depth, last;
+  vector<int> depth, first;
   vector<vector<int>> guts;
 
   int msb(int num) {
@@ -15,7 +15,7 @@ public:
     assert(vertices > 0);
     guts.resize(1);
 
-    last.resize(vertices);
+    first.resize(vertices);
     depth.resize(vertices);
 
     vector<int> &tour = guts[0];
@@ -26,7 +26,7 @@ public:
     std::function<void(int, int)> _dfs = [&](int cur, int cur_depth) {
       vis[cur] = true;
       depth[cur] = cur_depth;
-      last[cur] = (int)tour.size();
+      first[cur] = (int)tour.size();
       tour.push_back(cur);
       for (int next : graph[cur]) {
         if (false == vis[next]) {
@@ -70,8 +70,8 @@ public:
     if (depth[v] == depth[u] && depth[v] == 0 && u != v) {
       return NONE;
     }
-    int left = last[v];
-    int right = last[u];
+    int left = first[v];
+    int right = first[u];
     if (left > right)
       std::swap(left, right);
     ++right;
