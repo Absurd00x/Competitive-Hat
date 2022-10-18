@@ -2,13 +2,13 @@
 typedef pair<int, int> pii;
 struct MinModule {
   static pii func(const pii &a, const pii &b) {
-    return std::min(a, b);
+    return (a.first > b.first ? b : a);
   }
 };
 
 struct MaxModule {
   static pii func(const pii &a, const pii &b) {
-    return std::max(a, b);
+    return (a.first < b.first ? b : a);
   }
 };
 
