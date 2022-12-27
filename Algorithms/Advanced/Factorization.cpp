@@ -1,5 +1,8 @@
+const int A = 1e6;
+typedef pair<int, int> pii;
+typedef vector<pii> vpii;
+
 class Factorization {
-typedef vector<pair<int, int>> vpii;
 public:
   vector<int32_t> primes, lp, powered, max_power;
 private:
@@ -73,7 +76,7 @@ public:
           max_power[i] = 1;
         }
       }
-      for (int j = 0; j < (int)primes.size(); ++j) {
+      for (int32_t j = 0; j < (int32_t)primes.size(); ++j) {
         if (primes[j] > lp[i]) {
           break;
         }
@@ -160,4 +163,4 @@ public:
     return res;
   }
 
-} fact(1e7, false);
+} fact(A, true);
