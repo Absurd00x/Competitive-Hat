@@ -1,1 +1,0 @@
--std=c++20 -fconcepts -DLOCAL_PROJECT -O2 -Wall -Wextra -Winline -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC
