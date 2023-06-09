@@ -5,9 +5,9 @@ private:
     int res = 1;
     while (power > 0) {
       if (power & 1) {
-        res = int((1LL * res * n) % MOD);
+        res = int(1LL * res * n % MOD);
       }
-      n = int((1LL * n * n) % MOD);
+      n = int(1LL * n * n % MOD);
       power >>= 1;
     }
     return res;
@@ -20,19 +20,19 @@ public:
     ifacts.resize(A + 1);
     facts[0] = ifacts[0] = 1;
     for (int i = 1; i <= A; ++i) {
-      facts[i] = int((1LL * facts[i - 1] * i) % MOD);
+      facts[i] = int(1LL * facts[i - 1] * i % MOD);
     }
     ifacts[A] = this->pown(facts[A], MOD - 2);
     for (int i = A - 1; i > 0; --i) {
-      ifacts[i] = ((i + 1) * ifacts[i + 1]) % MOD;
+      ifacts[i] = 1LL * (i + 1) * ifacts[i + 1] % MOD;
     }
   }
 
   int cnk(int n, int k) {
-    return (facts[n] * ((ifacts[k] * ifacts[n - k]) % MOD)) % MOD;
+    return int(facts[n] * (1LL * ifacts[k] * ifacts[n - k] % MOD) % MOD);
   }
 
   int ank(int n, int k) {
-    return (facts[n] * ifacts[n - k]) % MOD;
+    return int(facts[n] * ifacts[n - k] % MOD);
   }
 } comb(2e5);
