@@ -55,7 +55,7 @@ pii intersect(const ti &one, const ti &other) {
   // Метод Краммера. Детерминант равен псевдоскалярному произведению
   // двух векторов, образующих матрицу 2*2 (в двумерном случае, короче)
   int det = skew(A1, A2, B1, B2);
-  return pii(skew(-C1, B1, -C2, B2) / det, skew(A1, -C1, A2, -C2) / det);
+  return pii(skew(B1, -C1, B2, -C2) / det, skew(A1, -C1, A2, -C2) / det);
 };
 
 bool clockwise(const pii &one, const pii &other) {

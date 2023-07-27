@@ -1,4 +1,8 @@
-#pragma GCC optimize("O3")
+#ifdef LOCAL_PROJECT
+  #pragma GCC optimize("O0")
+#else
+  #pragma GCC optimize("O3")
+#endif
 #include <bits/stdc++.h>
 
 using namespace std;
