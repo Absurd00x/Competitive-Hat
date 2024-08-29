@@ -114,8 +114,8 @@ protected:
         } else {
             int h = (r - l) / 2;
             int m = l + h;
-            _traverse(x + 1, l, m, f);
-            _traverse(x + 2 * h, m, r, f);
+            _traverse<T>(x + 1, l, m, f);
+            _traverse<T>(x + 2 * h, m, r, f);
             update_from_children(x, l, r);
         }
     }
@@ -130,10 +130,10 @@ protected:
             int h = (r - l) / 2;
             int m = l + h;
             if (qleft < m) {
-                _query(x + 1, l, m, f);
+                _query<T>(x + 1, l, m, f);
             }
             if (m < qright) {
-                _query(x + 2 * h, m, r, f);
+                _query<T>(x + 2 * h, m, r, f);
             }
             update_from_children(x, l, r);
         }
@@ -158,14 +158,14 @@ protected:
                 push(x + 1, l, m);
                 if (f(x + 1, l, m)) {
                     // Если получилось, то идём в правого сына
-                    _descend(x + 2 * h, m, r, f);
+                    _descend<T>(x + 2 * h, m, r, f);
                 } else {
                     // Иначе в левого
 
                     // Когда будем возвращаться, то правее m
                     // уже нельзя идти
                     qright = m;
-                    _descend(x + 1, l, m, f);
+                    _descend<T>(x + 1, l, m, f);
                 }
                 update_from_children(x, l, r);
             }
@@ -173,10 +173,10 @@ protected:
             int h = (r - l) / 2;
             int m = l + h;
             if (qleft < m) {
-                _descend(x + 1, l, m, f);
+                _descend<T>(x + 1, l, m, f);
             }
             if (m < qright) {
-                _descend(x + 2 * h, m, r, f);
+                _descend<T>(x + 2 * h, m, r, f);
             }
             update_from_children(x, l, r);
         }
@@ -201,13 +201,13 @@ protected:
                 push(x + 2 * h, m, r);
                 if (f(x + 2 * h, m, r)) {
                     // если получилось взять ПРАВОГО, то можно идти в левого
-                    _descend2(x + 1, l, m, f);
+                    _descend2<T>(x + 1, l, m, f);
                 } else {
                     // иначе в правого
 
                     // сдвигаем границу
                     qleft = l;
-                    _descend2(x + 2 * h, m, r, f);
+                    _descend2<T>(x + 2 * h, m, r, f);
                 }
                 update_from_children(x, l, r);
             }
@@ -215,10 +215,10 @@ protected:
             int h = (r - l) / 2;
             int m = l + h;
             if (m < qright) {
-                _descend2(x + 2 * h, m, r, f);
+                _descend2<T>(x + 2 * h, m, r, f);
             }
             if (qleft < m) {
-                _descend2(x + 1, l, m, f);
+                _descend2<T>(x + 1, l, m, f);
             }
             update_from_children(x, l, r);
         }
